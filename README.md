@@ -17,9 +17,9 @@ Required javadoc for any header info include:<p>
 Required javadoc for any function info include:<p>
 /\*\*
 \* Short one line description<br>
-\* &lt;p\\&gt;<br>
+\* &lt;p&gt;<br>
 \* Longer description here<br>
-\* &lt;p\\&gt;<br>
+\* &lt;p&gt;<br>
 \* @param parameter1Name Description<br>
 \* @param parameter2Name Description<br>
 \* @return<t><t><t>Description<br>
