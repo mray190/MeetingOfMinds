@@ -29,10 +29,14 @@ Git Commands and Requirements
 =============================
 To commit any file to the repository, utilize this command or format:<br>
 git status<br>
-git commit -a -m "Michael - Description of commit"<p>
+git commit -a -m "Michael - Description of commit"<br>
+git push<p>
 
 To pull the latest repository, utililze this command or format:<br>
-git pull
+git pull<p>
+
+To view the log of commits, utilize this command or format:<br>
+git log --pretty=format:"%h -%an, %ar : %s"
 
 Targets
 =======
