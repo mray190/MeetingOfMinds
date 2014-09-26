@@ -5,24 +5,24 @@ Source files for the Meeting of the Minds Hackathon sponsored by Qualcomm.
 
 Style Guide
 ===========
-Utilize Javadoc for all files
+Utilize Javadoc for all files<br>
 Required javadoc for any header info include:
-/*
-* class.java - Class description goes here
-* @author Michael
-* @version 1.0
-* @since 2014-09-30 18:30
-*/
+<p>/*<br>
+\* class.java - Class description goes here
+\* @author Michael
+\* @version 1.0
+\* @since 2014-09-30 18:30
+<br>*/
 
 Required javadoc for any function info include:
 /**
-* Short one line description
-* <p>
-* Longer description here
-* <p>
-* @param parameter1Name Description
-* @param parameter2Name Description
-* @return 				Description
+\* Short one line description
+\* \<p\>
+\* Longer description here
+\* <p>
+\* @param parameter1Name Description
+\* @param parameter2Name Description
+\* @return 				Description
 */
 
 Git Commands and Requirements
