@@ -1,17 +1,54 @@
 package com.webs.michael_ray.meetingofminds;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+public class Home extends FragmentActivity implements ActionBar.TabListener {
 
-public class Home extends ActionBarActivity {
+    private ViewPager mPager;
+    private TabsAdapter mPagerAdapter;
+    private ActionBar actionBar;
+
+    private void managePageNavigation() {
+        mPager = (ViewPager) findViewById(R.id.pager);
+        //Sets an action bar with tabs
+        actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setTitle(getResources().getString(R.string.app_name));
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        FragmentManager fm = getSupportFragmentManager();
+
+        mPagerAdapter = new TabsAdapter(fm);
+        mPager.setAdapter(mPagerAdapter);
+        mPager.setOffscreenPageLimit(5);
+
+        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageSelected(int position) { actionBar.setSelectedNavigationItem(position); }
+            public void onPageScrolled(int arg0, float arg1, int arg2) { }
+            public void onPageScrollStateChanged(int arg0) { }
+        });
+
+        //Create the tabs and fragments
+        ActionBar.Tab tab1 = actionBar.newTab().setText(getResources().getString(R.string.tab1));
+        actionBar.addTab(tab1.setTabListener(this));
+        ActionBar.Tab tab2 = actionBar.newTab().setText(getResources().getString(R.string.tab2));
+        actionBar.addTab(tab2.setTabListener(this));
+        ActionBar.Tab tab3 = actionBar.newTab().setText(getResources().getString(R.string.tab3));
+        actionBar.addTab(tab3.setTabListener(this));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        managePageNavigation();
     }
 
 
@@ -33,4 +70,13 @@ public class Home extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) { }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) { }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) { }
 }
