@@ -1,4 +1,4 @@
-package com.webs.michael_ray.meetingofminds.com.webs.michael_ray.meetingofminds.logic;
+package com.webs.michael_ray.meetingofminds;
 
 /**
  * Created by asb on 30/09/14.
@@ -19,6 +19,6 @@ public interface Point {
 
     public boolean getFav();
 
-    public void setFav();
+    public void setFav(boolean fav);
 
 }
