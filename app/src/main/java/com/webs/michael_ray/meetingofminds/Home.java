@@ -25,6 +25,7 @@ public class Home extends FragmentActivity implements ActionBar.TabListener {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setTitle(getResources().getString(R.string.app_name));
         actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.color
 
         FragmentManager fm = getSupportFragmentManager();
 
@@ -40,11 +41,13 @@ public class Home extends FragmentActivity implements ActionBar.TabListener {
 
         //Create the tabs and fragments
         ActionBar.Tab tab1 = actionBar.newTab().setText(getResources().getString(R.string.tab1));
+        //tab1
         actionBar.addTab(tab1.setTabListener(this));
         ActionBar.Tab tab2 = actionBar.newTab().setText(getResources().getString(R.string.tab2));
         actionBar.addTab(tab2.setTabListener(this));
         ActionBar.Tab tab3 = actionBar.newTab().setText(getResources().getString(R.string.tab3));
         actionBar.addTab(tab3.setTabListener(this));
+
     }
 
     @Override

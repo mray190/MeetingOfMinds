@@ -10,10 +10,12 @@
         android:layout_weight="0.5"
         android:layout_height="match_parent"
         android:text="name"
+        android:textStyle="bold"
         android:id="@+id/txt_name_catsub"
-        android:textSize="30sp"
+        android:textSize="22sp"
         android:gravity="center_vertical"
-        android:paddingLeft="5dp"
+        android:paddingLeft="15dp"
+        android:background="@color/cat1"
         />
 
     <TextView
@@ -22,8 +24,9 @@
         android:layout_height="match_parent"
         android:id="@+id/txt_rate_catsub"
         android:text="@string/rating"
-        android:textSize="20dp"
-        android:gravity="center_vertical"/>
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:background="@color/cat1"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -36,7 +39,8 @@
             android:layout_height="0dp"
             android:layout_weight="0.7"
             android:id="@+id/img_dir_catsub"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@drawable/ic_launcher"
+            android:background="@color/cat1"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -44,8 +48,10 @@
             android:layout_weight="0.3"
             android:id="@+id/txt_dist_catsub"
             android:text="distance"
-            android:textSize="20sp"
-            android:gravity="center_horizontal" />
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:background="@color/cat1"/>
 
 
 

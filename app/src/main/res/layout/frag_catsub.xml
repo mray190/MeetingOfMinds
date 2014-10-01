@@ -11,10 +11,11 @@
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:text="@string/category"
-        android:textSize="35sp"
+        android:textSize="22sp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:id="@+id/txt_cat_fragcatsub"
+        android:background="@color/cat4"
         />
 
     <ListView
@@ -22,5 +23,6 @@
         android:layout_height="0dp"
         android:layout_weight="0.9"
         android:id="@+id/list_fragcatsub"
+
          />
 </LinearLayout>

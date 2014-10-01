@@ -15,6 +15,7 @@
         android:src="@drawable/ic_launcher"
         android:layout_gravity="center_horizontal"
         android:paddingTop="5dp"
+        android:background="@color/cat2"
 
         />
 
@@ -24,10 +25,11 @@
         android:layout_weight=".7"
         android:id="@+id/txt_cat_catmain"
         android:text="@string/category"
-        android:textSize="30sp"
+        android:textSize="22sp"
+        android:textStyle="bold"
         android:gravity="center_vertical"
-        android:layout_gravity="center_horizontal" />
-     <!--   android:background="#ff31ff3f" -->
+        android:layout_gravity="center_horizontal"
+        android:background="@color/cat2" />
 
 
 

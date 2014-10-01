@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <color name="cat1">#ff31ff3f</color>
-    <color name="cat2">#ff427dff</color>
-    <color name="cat3">#ffff5a5a</color>
-    <color name="cat4">#ffff60eb</color>
+    <color name="cat1">#ff14a10d</color>
+    <color name="cat2">#ff2f3ea9</color>
+    <color name="cat3">#ffc74747</color>
+    <color name="cat4">#ffb39612</color>
 </resources>

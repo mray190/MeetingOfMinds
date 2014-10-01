@@ -21,6 +21,8 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:text="Add Location"
+            android:textStyle="bold"
+            android:textSize="22sp"
             android:id="@+id/add"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
