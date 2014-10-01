@@ -6,14 +6,16 @@ import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.webs.michael_ray.meetingofminds.logic.CategoryManager;
 
 public class Maps extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private double[] latitude, longitude;
-    private String[] names;
+    private String[] names, category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,7 @@ public class Maps extends FragmentActivity {
         latitude = getIntent().getExtras().getDoubleArray("latitude");
         longitude = getIntent().getExtras().getDoubleArray("longitude");
         names = getIntent().getExtras().getStringArray("names");
+        category = getIntent().getExtras().getStringArray("category");
         setUpMapIfNeeded();
     }
 
@@ -67,8 +70,10 @@ public class Maps extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        for (int i=0; i<latitude.length; i++) {
-            mMap.addMarker(new MarkerOptions().position(new LatLng(latitude[i], longitude[i])).title(names[i]));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude[0], longitude[0])).title(names[0]));
+        for (int i=1; i<latitude.length; i++) {
+            mMap.addMarker(new MarkerOptions().position(new LatLng(latitude[i], longitude[i])).title(names[i])
+                    .icon(BitmapDescriptorFactory.fromResource(CategoryManager.resource(category[i]))));
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude[0], longitude[0]), 15));
     }

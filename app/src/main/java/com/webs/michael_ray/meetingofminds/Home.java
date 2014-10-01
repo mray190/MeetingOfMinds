@@ -237,18 +237,22 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
     private Intent setPins(Intent intent, ArrayList<Point> points) {
         double[] latitude = new double[points.size()+1];
         double[] longitude = new double[points.size()+1];
+        String[] category = new String[points.size()+1];
         String[] names = new String[points.size()+1];
         latitude[0] = currentLoc.getLatitude();
         longitude[0] = currentLoc.getLongitude();
         names[0] = "Current";
+        category[0] = "";
         for (int i=1; i<latitude.length; i++) {
             latitude[i] = points.get(i-1).getLatitude();
             longitude[i] = points.get(i-1).getLongitude();
+            category[i] = points.get(i-1).getCat();
             names[i] = points.get(i-1).getName();
         }
         intent.putExtra("latitude",latitude);
         intent.putExtra("longitude",longitude);
         intent.putExtra("names",names);
+        intent.putExtra("category",category);
         return intent;
     }
 
