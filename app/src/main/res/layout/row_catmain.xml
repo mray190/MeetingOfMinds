@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_weight=".3"
         android:id="@+id/img_icon_catmain"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/food_icon"
         android:layout_gravity="center_horizontal"
         android:paddingTop="5dp"
         android:background="@color/bike"

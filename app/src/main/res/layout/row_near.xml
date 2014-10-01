@@ -10,7 +10,7 @@
         android:layout_height="fill_parent"
         android:layout_weight=".2"
         android:id="@+id/img_icon_near"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/community_icon"
         android:gravity="center_vertical"
         android:background="@color/soup"/>
 

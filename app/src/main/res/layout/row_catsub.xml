@@ -39,7 +39,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.7"
             android:id="@+id/img_dir_catsub"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/energy_icon"
             android:background="@color/ev_charge"/>
 
         <TextView
