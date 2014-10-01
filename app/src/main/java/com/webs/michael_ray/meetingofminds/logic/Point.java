@@ -1,5 +1,7 @@
 package com.webs.michael_ray.meetingofminds.logic;
 
+import java.sql.Time;
+
 /**
  * Created by asb on 30/09/14.
  */
@@ -34,7 +36,14 @@ public class Point {
      * @param rate rating of the point, from 0-5
      * @param fav whether the point is a favorite
      */
-    public Point(String cat, String name, int icon, int dir, double dist, double rate, boolean fav){
+    public Point(
+            String cat,
+            String name,
+            int icon,
+            int dir,
+            double dist,
+            double rate,
+            boolean fav){
         this.cat = cat;
         this.name = name;
         this.icon = icon;
@@ -42,6 +51,74 @@ public class Point {
         this.dist = dist;
         this.rate = rate;
         this.fav = fav;
+    }
+
+    public Point(
+            int sid,
+            double lat,
+            double longitude,
+            int category,
+            int reports,
+            String description,
+            int rating,
+            int votes,
+            int uid,
+            Time time
+    ){
+        //TODO
+
+        /*
+    private ArrayList<Point> convertToPoints(ResultSet data) throws SQLException{
+        ArrayList<Point> points = new ArrayList<Point>();
+
+        while (data.next()){
+            points.add(
+                    new Point(
+                        data.getInt("sid"),
+                        data.getDouble("lat"),
+                        data.getDouble("long"),
+                        data.getInt("type"),
+                        data.getInt("reports"),
+                        data.getString("description"),
+                        data.getInt("rating"),
+                        data.getInt("votes"),
+                        data.getInt("uid"),
+                        data.getTime("time")
+                    )
+            );
+        }
+
+        return points;
+    }
+         */
+
+
+
+        /*
+
+        //Get all the point IDs associated with the userID
+        ResultSet subIds = query(
+                "SELECT sid " +
+                "FROM favorites " +
+                "WHERE uid = '" + userId + "'"
+        );
+
+        //Container
+        ArrayList<Point> points = new ArrayList<Point>();
+
+        //Converts all favorite point IDs to the Java container
+        while (subIds.next()){
+            ResultSet pointData = query(
+                    "SELECT * " +
+                    "FROM submissions " +
+                    "WHERE sid = '" + subIds.getInt("sid") + "'"
+            );
+
+            points.addAll(convertToPoints(pointData));
+        }
+
+        return points;
+         */
     }
     //----------------------------------------------------------------------------------------------
 

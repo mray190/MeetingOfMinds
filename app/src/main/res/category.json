@@ -1,0 +1,69 @@
+[
+	{
+		"category" : "Buildings",
+		"sub" : [
+		    "Business",
+			"Fire Station",
+			"Movie Theater",
+			"Museum",
+			"Police Station",
+			"Post Office",
+			"School"
+		]
+	},
+	{
+		"category" : "Community",
+		"sub" : [
+			"Church",
+			"Garden",
+			"Homeless Shelter",
+			"Homeless Person",
+			"Overgrown Lot",
+			"Pothole",
+			"Rundown Building",
+			"Trail"
+		]
+	},
+	{
+		"category" : "Energy",
+		"sub" : [
+			"Electrical Outlet",
+			"Recycle Bin",
+			"Trash Can"
+		]
+	},
+	{
+		"category" : "Events",
+		"sub" : [
+			"Charity",
+			"Running",
+			"Sports"
+		]
+	},
+	{
+		"category" : "Food",
+		"sub" : [
+			"Fast Food",
+			"Food Truck",
+			"Ice Cream",
+			"Restaurant",
+			"Vending Machine"
+		]
+	},
+	{
+		"category" : "Living",
+		"sub" : [
+			"Bathroom",
+			"Water Fountain"
+		]
+	},
+	{
+		"category" : "Transportation",
+		"sub" : [
+			"Bike Rack",
+			"Electric Vehicle Charging",
+			"Motorcycle Parking",
+			"Parking"
+		]
+	}
+]

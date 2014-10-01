@@ -65,7 +65,7 @@ public class DatabaseManager {
     public boolean insertPoint(Location loc, int category, String description, int userId){
         return false;
     }
-    //----------------------------------------------------------------------------------------------
+    //-------------------------- --------------------------------------------------------------------
 
 
     //Sequel
