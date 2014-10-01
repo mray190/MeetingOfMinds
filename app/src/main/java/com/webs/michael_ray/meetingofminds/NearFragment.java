@@ -5,7 +5,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 
 public class NearFragment extends ListFragment {
     private Location location;
+    private ArrayList<Point> points;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +35,10 @@ public class NearFragment extends ListFragment {
         getNear.execute();
     }
 
+    public ArrayList<Point> getPoints() {
+        return points;
+    }
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
@@ -42,14 +46,10 @@ public class NearFragment extends ListFragment {
 
     private class GetNear extends AsyncTask<Void, Integer, Void> {
         private PointNearAdapter pAdapter;
-        private ArrayList<Point> points;
         @Override
         protected Void doInBackground(Void...params) {
             try {
-                Log.d("MyApp",Double.toString(location.getLatitude()));
-                Log.d("MyApp",Double.toString(location.getLongitude()));
                 points = DatabaseManager.dm.findNear(location);
-                Log.d("MyApp",Integer.toString(points.size()));
             } catch (Exception e) {
                 e.printStackTrace();
                 points = new ArrayList<Point>();

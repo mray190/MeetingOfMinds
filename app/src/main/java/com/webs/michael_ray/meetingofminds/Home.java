@@ -33,6 +33,8 @@ import com.webs.michael_ray.meetingofminds.adapters.TabsAdapter;
 import com.webs.michael_ray.meetingofminds.logic.DatabaseManager;
 import com.webs.michael_ray.meetingofminds.logic.Point;
 
+import java.util.ArrayList;
+
 public class Home extends FragmentActivity implements LocationListener, ActionBar.TabListener, GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
     private ViewPager mPager;
@@ -115,12 +117,18 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
 
     private static class InsertPoint extends AsyncTask<Void, Integer, Void> {
         private Context context;
-        public InsertPoint(Context context) {
+        private Point point;
+        public InsertPoint(Context context, Point point) {
             this.context = context;
+            this.point = point;
         }
         @Override
         protected Void doInBackground(Void...params) {
-
+            try {
+                DatabaseManager.dm.insertPoint(point);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return null;
         }
         protected void onProgressUpdate(Integer...progress) {
@@ -172,7 +180,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
                             String category = ((EditText)d.findViewById(R.id.cat_add)).getText().toString();
                             String name = ((EditText)d.findViewById(R.id.name_add)).getText().toString();
                             Point point = new Point(userID,category,name,location.getLatitude(),location.getLongitude());
-                            InsertPoint addPoint = new InsertPoint(getActivity());
+                            InsertPoint addPoint = new InsertPoint(getActivity(), point);
                             addPoint.execute();
                         }
                     })
@@ -237,8 +245,21 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
             return true;
         } else if (id== R.id.action_map) {
             Intent intent = new Intent(this, Maps.class);
-            intent.putExtra("latitude",currentLoc.getLatitude());
-            intent.putExtra("longitude",currentLoc.getLongitude());
+            ArrayList<Point> points = ((NearFragment) mPagerAdapter.getRegisteredFragment(0)).getPoints();
+            double[] latitude = new double[points.size()+1];
+            double[] longitude = new double[points.size()+1];
+            String[] names = new String[points.size()+1];
+            latitude[0] = currentLoc.getLatitude();
+            longitude[0] = currentLoc.getLongitude();
+            names[0] = "Current";
+            for (int i=1; i<latitude.length; i++) {
+                latitude[i] = points.get(i-1).getLatitude();
+                longitude[i] = points.get(i-1).getLongitude();
+                names[i] = points.get(i-1).getName();
+            }
+            intent.putExtra("latitude",latitude);
+            intent.putExtra("longitude",longitude);
+            intent.putExtra("names",names);
             startActivity(intent);
             return true;
         }
