@@ -93,9 +93,7 @@ public class Point {
 
     public Point(
             String category,
-            int categoryIconCode,
-            double loc_longitude,
-            double loc_latitude
+            int categoryIconCode
     ){
         this.userId = 0;
         this.subId = 0;
@@ -109,8 +107,6 @@ public class Point {
         this.numVotes = 0;
         this.rating = 0;
         this.currentLocation = new Location("");
-        this.currentLocation.setLongitude(loc_longitude);
-        this.currentLocation.setLatitude(loc_latitude);
     }
     //----------------------------------------------------------------------------------------------
 

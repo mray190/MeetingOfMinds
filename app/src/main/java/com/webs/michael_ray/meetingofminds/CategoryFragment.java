@@ -6,10 +6,12 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
 import com.webs.michael_ray.meetingofminds.adapters.PointNearAdapter;
+import com.webs.michael_ray.meetingofminds.logic.CategoryManager;
 import com.webs.michael_ray.meetingofminds.logic.DatabaseManager;
 import com.webs.michael_ray.meetingofminds.logic.Point;
 
@@ -21,8 +23,9 @@ import java.util.ArrayList;
 
 public class CategoryFragment extends ListFragment {
     private Location location;
-    private String category;
     private ArrayList<Point> points;
+    private PointNearAdapter pAdapter;
+    private String category;
     public static ArrayList<ArrayList<String>> categories;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -33,13 +36,22 @@ public class CategoryFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getListView().setCacheColorHint(Color.TRANSPARENT);
+        read();
     }
 
-    public void updateList(Location location, String category) {
+    public void updateList(Location location) {
         this.location = location;
-        this.category = category;
-        GetCategory getCategory = new GetCategory();
-        getCategory.execute();
+        points = new ArrayList<Point>();
+        for (int i = 0; i < CategoryFragment.categories.size(); i++){
+            for (int j = 1; j < CategoryFragment.categories.get(i).size(); j++){
+                String category = CategoryFragment.categories.get(i).get(j);
+                int icon = CategoryManager.resource(category);
+                Point point = new Point(category, icon);
+                points.add(point);
+            }
+        }
+        pAdapter = new PointNearAdapter(getActivity(), R.layout.row_near, points);
+        setListAdapter(pAdapter);
     }
 
     public ArrayList<Point> getPoints() {
@@ -48,7 +60,9 @@ public class CategoryFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-
+        category = points.get(position).getCat();
+        GetCategory getCategory = new GetCategory();
+        getCategory.execute();
     }
 
     private void read(){
@@ -88,13 +102,13 @@ public class CategoryFragment extends ListFragment {
     }
 
     private class GetCategory extends AsyncTask<Void, Integer, Void> {
-        private PointNearAdapter pAdapter;
         @Override
         protected Void doInBackground(Void...params) {
             try {
                 points = DatabaseManager.dm.findNear(location,category);
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.d("MyApp","Not working");
                 points = new ArrayList<Point>();
             }
             return null;

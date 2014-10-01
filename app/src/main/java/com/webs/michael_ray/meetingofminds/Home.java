@@ -142,7 +142,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
     private void updateLists() {
         ((NearFragment) mPagerAdapter.getRegisteredFragment(0)).updateList(currentLoc);
         ((FavoritesFragment) mPagerAdapter.getRegisteredFragment(2)).updateList(userID);
-        ((CategoryFragment) mPagerAdapter.getRegisteredFragment(2)).updateList(userID);
+        ((CategoryFragment) mPagerAdapter.getRegisteredFragment(1)).updateList(currentLoc);
     }
 
     @Override
@@ -234,6 +234,24 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
         return true;
     }
 
+    private Intent setPins(Intent intent, ArrayList<Point> points) {
+        double[] latitude = new double[points.size()+1];
+        double[] longitude = new double[points.size()+1];
+        String[] names = new String[points.size()+1];
+        latitude[0] = currentLoc.getLatitude();
+        longitude[0] = currentLoc.getLongitude();
+        names[0] = "Current";
+        for (int i=1; i<latitude.length; i++) {
+            latitude[i] = points.get(i-1).getLatitude();
+            longitude[i] = points.get(i-1).getLongitude();
+            names[i] = points.get(i-1).getName();
+        }
+        intent.putExtra("latitude",latitude);
+        intent.putExtra("longitude",longitude);
+        intent.putExtra("names",names);
+        return intent;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -247,21 +265,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
         } else if (id== R.id.action_map) {
             Intent intent = new Intent(this, Maps.class);
             ArrayList<Point> points = ((NearFragment) mPagerAdapter.getRegisteredFragment(0)).getPoints();
-            double[] latitude = new double[points.size()+1];
-            double[] longitude = new double[points.size()+1];
-            String[] names = new String[points.size()+1];
-            latitude[0] = currentLoc.getLatitude();
-            longitude[0] = currentLoc.getLongitude();
-            names[0] = "Current";
-            for (int i=1; i<latitude.length; i++) {
-                latitude[i] = points.get(i-1).getLatitude();
-                longitude[i] = points.get(i-1).getLongitude();
-                names[i] = points.get(i-1).getName();
-            }
-            intent.putExtra("latitude",latitude);
-            intent.putExtra("longitude",longitude);
-            intent.putExtra("names",names);
-            startActivity(intent);
+            startActivity(setPins(intent,points));
             return true;
         }
         return super.onOptionsItemSelected(item);
