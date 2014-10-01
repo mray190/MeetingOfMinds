@@ -5,8 +5,6 @@ import android.location.Location;
 
 import com.webs.michael_ray.meetingofminds.R;
 
-import java.sql.Time;
-
 /**
  * Created by asb on 30/09/14.
  */
@@ -28,6 +26,7 @@ public class Point {
     //Location data
     private double latitude;
     private double longitude;
+    private Location currentLocation;
 
     //Votes / Reports / Time : Meta data
     private int numReports;
@@ -51,7 +50,8 @@ public class Point {
             int numReports,
             int numVotes,
             double rating,
-            int time
+            int time,
+            Location currentLocation
     ){
         this.userId = userId;
         this.subId = subId;
@@ -65,6 +65,7 @@ public class Point {
         this.numVotes = numVotes;
         this.rating = rating;
         this.time = time;
+        this.currentLocation = currentLocation;
     }
 
     public Point(
@@ -85,20 +86,9 @@ public class Point {
         this.numReports = 0;
         this.numVotes = 0;
         this.rating = 0;
-    }
-
-    public Point(
-            int subId,
-            double latitude,
-            double longitude,
-            int category,
-            int reports,
-            String description,
-            int rating,
-            int votes,
-            int userId,
-            Time time
-    ) {
+        this.currentLocation = new Location("");
+        this.currentLocation.setLongitude(longitude);
+        this.currentLocation.setLatitude(latitude);
     }
     //----------------------------------------------------------------------------------------------
 
@@ -130,7 +120,7 @@ public class Point {
 
     public int getDir(){
         //Calculates the bearing and bearing direction as an index 0-9
-        float bearing = CurrentLocation.getCurrentLocation().bearingTo(getLocation());
+        float bearing = currentLocation.bearingTo(getLocation());
         int direction = (int)bearing;
         while (direction > 45){ direction = direction / 45; }
 
@@ -150,7 +140,7 @@ public class Point {
     }
 
     public double getDist(){
-        return CurrentLocation.getCurrentLocation().distanceTo(getLocation());
+        return currentLocation.distanceTo(getLocation());
     }
 
     public double getRate(){

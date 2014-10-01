@@ -87,7 +87,8 @@ public class DatabaseManager {
                Integer.parseInt(vals[8]),           //numReports
                Integer.parseInt(vals[9]),           //numVotes
                Double.parseDouble(vals[10]),        //rating
-               Integer.parseInt(vals[11])           //time
+               Integer.parseInt(vals[11]),          //time
+               loc                                  //current location
             ));
         }
 
