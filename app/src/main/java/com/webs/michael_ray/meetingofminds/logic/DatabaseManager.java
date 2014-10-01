@@ -79,14 +79,14 @@ public class DatabaseManager {
                Integer.parseInt(vals[1]),           //subId
                false,                               //favorite
                vals[2],                             //category
-               CategoryManager.resource(vals[3]),   //categoryIconCode
-               vals[4],                             //names
-               Double.parseDouble(vals[5]),         //latitude
-               Double.parseDouble(vals[6]),         //longitude
-               Integer.parseInt(vals[7]),           //numReports
-               Integer.parseInt(vals[8]),           //numVotes
-               Double.parseDouble(vals[9]),        //rating
-               Integer.parseInt(vals[10]),          //time
+               CategoryManager.resource(vals[2]),   //categoryIconCode
+               vals[3],                             //names
+               Double.parseDouble(vals[4]),         //latitude
+               Double.parseDouble(vals[5]),         //longitude
+               Integer.parseInt(vals[6]),           //numReports
+               Integer.parseInt(vals[7]),           //numVotes
+               Double.parseDouble(vals[8]),         //rating
+               Integer.parseInt(vals[9]),          //time
                loc                                  //current location
             ));
         }
