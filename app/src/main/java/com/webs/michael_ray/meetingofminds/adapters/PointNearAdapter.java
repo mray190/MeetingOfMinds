@@ -52,6 +52,9 @@ public class PointNearAdapter extends ArrayAdapter<Point> {
         }
         Point point = data.get(position);
         holder.img_icon.setImageResource(point.getIcon());
+        if (point.getIcon()==R.drawable.ic_map) {
+            holder.img_icon.setBackgroundResource(R.color.cat1);
+        }
         holder.img_dir.setImageResource(point.getDir());
         holder.txt_cat.setText(point.getCat());
         holder.txt_dist.setText(df.format(point.getDist()));

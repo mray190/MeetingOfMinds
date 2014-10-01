@@ -19,10 +19,6 @@ import java.util.ArrayList;
 public class NearFragment extends ListFragment {
     private Location location;
 
-    public NearFragment(Location location) {
-        this.location = location;
-    }
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -31,6 +27,10 @@ public class NearFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getListView().setCacheColorHint(Color.TRANSPARENT);
+    }
+
+    public void updateList(Location location) {
+        this.location = location;
         GetNear getNear = new GetNear();
         getNear.execute();
     }
