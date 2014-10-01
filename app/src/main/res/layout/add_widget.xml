@@ -1,18 +1,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="@dimen/widget_margin"
     android:background="@color/grey"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
+
 
     <ImageButton
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:src="@drawable/widget_button"
-        android:layout_gravity="center"
-        android:id="@+id/widget_button"/>
-        <!--android:minHeight="40dp"
-        android:minWidth="110dp"-->
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".25"
+        android:src="@drawable/food_icon"
+
+        android:id="@+id/btn_1"/>
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".25"
+        android:src="@drawable/community_icon"
+
+        android:id="@+id/btn_2"/>
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".25"
+        android:src="@drawable/energy_icon"
+
+        android:id="@+id/btn_3"/>
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".25"
+        android:src="@drawable/transportation_icon"
+
+        android:id="@+id/btn_4"/>
+
 
 
 
