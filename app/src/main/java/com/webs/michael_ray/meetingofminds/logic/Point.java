@@ -1,5 +1,8 @@
 package com.webs.michael_ray.meetingofminds.logic;
 
+
+import android.location.Location;
+
 import java.sql.Time;
 
 /**
@@ -10,22 +13,30 @@ public class Point {
 
     //Data
     //----------------------------------------------------------------------------------------------
-    private String cat;
+    //User data
+    private int userId;
+    private int subId;
+    private boolean favorite;
+
+    //Category data
+    private int category;
+    private int categoryIconCode;
     private String name;
-    private int icon;
-    private int dir;
-    private double dist;
-    private double rate;
-    private boolean fav;
+
+    //Location data
+    private double latitude;
+    private double longitude;
+
+    //Votes / Reports / Time : Meta data
+    private int numReports;
+    private int numVotes;
+    private double rating;
+    private Time time;
     //----------------------------------------------------------------------------------------------
 
 
     //Constructors
     //----------------------------------------------------------------------------------------------
-    public Point(){
-        this(null, null, -1, -1, -1, -1, false);
-    }
-
     /**
      * Constructs a Point.
      * @param cat category, such as "Food"
@@ -43,55 +54,38 @@ public class Point {
             int dir,
             double dist,
             double rate,
-            boolean fav){
-        this.cat = cat;
-        this.name = name;
-        this.icon = icon;
-        this.dir = dir;
-        this.dist = dist;
-        this.rate = rate;
-        this.fav = fav;
+            boolean fav
+    ){
     }
 
     public Point(
-            int sid,
-            double lat,
+            int subId,
+            double latitude,
             double longitude,
             int category,
             int reports,
             String description,
             int rating,
             int votes,
-            int uid,
+            int userId,
             Time time
     ) {
-        //TODO
     }
     //----------------------------------------------------------------------------------------------
 
 
-    //Setters
+    //Calculations
     //----------------------------------------------------------------------------------------------
-    public void setCat(String cat){
-        this.cat = cat;
+    private String convertCategory(int category){
+//        context.getResources().openRawResource(R.raw.category_json);
+        return null;
     }
 
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public void setIcon(int icon){ this.icon = icon; }
-
-    public void setDir(int dir){
-        this.dir = dir;
-    }
-
-    public void setRate(int rate){
-        this.rate = rate;
-    }
-
-    public void setFav(boolean fav){
-        this.fav = fav;
+    private Location getLocation(){
+        Location loc = new Location("");
+        loc.setLatitude(this.latitude);
+        loc.setLongitude(this.longitude);
+        return loc;
     }
     //----------------------------------------------------------------------------------------------
 
@@ -99,7 +93,7 @@ public class Point {
     //Getters
     //----------------------------------------------------------------------------------------------
     public String getCat(){
-        return cat;
+        return convertCategory(category);
     }
 
     public String getName(){
@@ -107,23 +101,40 @@ public class Point {
     }
 
     public int getIcon(){
-        return icon;
+        return categoryIconCode;
     }
 
     public int getDir(){
-        return dir;
+        //Calculates the bearing and bearing direction as an index 0-9
+        float bearing = CurrentLocation.getCurrentLocation().bearingTo(getLocation());
+        int direction = (int)bearing;
+        while (direction > 45){ direction = direction / 45; }
+
+        //Switch to find the resource based on the direction
+        switch(direction){
+            case 0: return R.drawable.compass_north;
+            case 1: return R.drawable.compass_northeast;
+            case 2: return R.drawable.compass_east;
+            case 3: return R.drawable.compass_southeast;
+            case 4: return R.drawable.compass_south;
+            case 5: return R.drawable.compass_southwest;
+            case 6: return R.drawable.compass_west;
+            case 7: return R.drawable.compass_northwest;
+            case 8: return R.drawable.compass_north;
+            default: return R.drawable.compass_north;
+        }
     }
 
     public double getDist(){
-        return dist;
+        return CurrentLocation.getCurrentLocation().distanceTo(getLocation());
     }
 
     public double getRate(){
-        return rate;
+        return rating;
     }
 
     public boolean getFav(){
-        return fav;
+        return favorite;
     }
     //----------------------------------------------------------------------------------------------
 
