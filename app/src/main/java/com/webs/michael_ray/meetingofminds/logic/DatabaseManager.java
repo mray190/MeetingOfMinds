@@ -245,12 +245,13 @@ public class DatabaseManager {
     //Sequel
     //----------------------------------------------------------------------------------------------
     private ResultSet query(String sqlStatement) throws SQLException{
-        String host = "schul030_meeting_of_the_minds";
+        String url      = "jdbc:mysql://shaneschulte.com:3306/";
+        String db       = "schul030_meeting_of_the_minds";
         String username = "schul030_motm";
         String password = "%LyB}g4Pxlrz";
 
         //Connect
-        Connection conn = DriverManager.getConnection(host, username, password);
+        Connection conn = DriverManager.getConnection(url+db, username, password);
 
         //Allocate Statement
         Statement statement = conn.createStatement();
