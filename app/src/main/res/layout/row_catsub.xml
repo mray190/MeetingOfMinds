@@ -5,4 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="name"
+        android:id="@+id/txt_name_catsub"
+        android:textSize="30dp"
+        android:paddingLeft="5dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/txt_rate_catsub"
+        android:text="@string/rating"
+        android:textSize="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/txt_dist_catsub"
+        android:text="distance"
+        android:textSize="20dp"
+        android:paddingLeft="40dp"
+        android:paddingTop="10dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/img_dir_catsub"/>
+
+
+
 </LinearLayout>
