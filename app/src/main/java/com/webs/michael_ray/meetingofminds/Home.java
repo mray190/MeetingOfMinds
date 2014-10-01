@@ -31,6 +31,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.webs.michael_ray.meetingofminds.adapters.TabsAdapter;
 import com.webs.michael_ray.meetingofminds.logic.DatabaseManager;
+import com.webs.michael_ray.meetingofminds.logic.Point;
 
 public class Home extends FragmentActivity implements LocationListener, ActionBar.TabListener, GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
@@ -40,6 +41,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
     private FragmentManager fm;
     private SharedPreferences prefs;
     private LocationClient mLocationClient;
+    private int userID;
 
     private void managePageNavigation() {
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -81,6 +83,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         managePageNavigation();
+        userID = 0;
         Login login = new Login(this);
         login.execute();
     }
@@ -102,7 +105,26 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
             return null;
         }
         protected void onProgressUpdate(Integer...progress) {
+            userID = progress[0];
             Toast.makeText(context, "ID: " + Integer.toString(progress[0]), Toast.LENGTH_LONG).show();
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+        }
+    }
+
+    private static class InsertPoint extends AsyncTask<Void, Integer, Void> {
+        private Context context;
+        public InsertPoint(Context context) {
+            this.context = context;
+        }
+        @Override
+        protected Void doInBackground(Void...params) {
+
+            return null;
+        }
+        protected void onProgressUpdate(Integer...progress) {
+
         }
         @Override
         protected void onPostExecute(Void result) {
@@ -119,14 +141,16 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
         Location location = null;
         if (servicesConnected())
             location = mLocationClient.getLastLocation();
-        dialog.insertLocation(location);
+        dialog.insertLocation(location,userID);
         dialog.show(getFragmentManager(), "dialog");
     }
 
 
     public static class AddPoint extends DialogFragment {
         private Location location;
-        public void insertLocation(Location location) {
+        private int userID;
+        public void insertLocation(Location location, int userID) {
+            this.userID = userID;
             this.location = location;
         }
         @Override
@@ -140,6 +164,9 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
                             Dialog d = (Dialog)dialog;
                             String category = ((EditText)d.findViewById(R.id.cat_add)).getText().toString();
                             String name = ((EditText)d.findViewById(R.id.name_add)).getText().toString();
+                            Point point = new Point(userID,category,name,location.getLatitude(),location.getLongitude());
+                            InsertPoint addPoint = new InsertPoint(getActivity());
+                            addPoint.execute();
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

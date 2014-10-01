@@ -68,6 +68,26 @@ public class Point {
     }
 
     public Point(
+            int userId,
+            String category,
+            String name,
+            double latitude,
+            double longitude
+    ){
+        this.userId = userId;
+        this.subId = 0;
+        this.favorite = false;
+        this.category = category;
+        this.categoryIconCode = 0;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.numReports = 0;
+        this.numVotes = 0;
+        this.rating = 0;
+    }
+
+    public Point(
             int subId,
             double latitude,
             double longitude,
