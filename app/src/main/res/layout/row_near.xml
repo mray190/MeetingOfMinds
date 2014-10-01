@@ -12,7 +12,7 @@
         android:id="@+id/img_icon_near"
         android:src="@drawable/ic_launcher"
         android:gravity="center_vertical"
-        android:background="@color/cat3"/>
+        android:background="@color/soup"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -30,7 +30,7 @@
         android:textSize="22sp"
         android:gravity="center_vertical"
         android:paddingLeft="5dp"
-        android:background="@color/cat3"/>
+        android:background="@color/soup"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         android:textSize="14sp"
         android:gravity="center_vertical"
         android:paddingLeft="25dp"
-        android:background="@color/cat3"/>
+        android:background="@color/soup"/>
     </LinearLayout>
 
 
@@ -58,7 +58,7 @@
             android:id="@+id/img_dir_near"
             android:src="@drawable/compass_north"
             android:gravity="center_horizontal"
-            android:background="@color/cat3"/>
+            android:background="@color/soup"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             android:textSize="18sp"
             android:gravity="center_horizontal"
             android:layout_gravity="center_vertical"
-            android:background="@color/cat3"/>
+            android:background="@color/soup"/>
 
 
 

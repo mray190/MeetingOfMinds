@@ -52,9 +52,32 @@ public class PointNearAdapter extends ArrayAdapter<Point> {
         }
         Point point = data.get(position);
         holder.img_icon.setImageResource(point.getIcon());
-        if (point.getIcon()==R.drawable.ic_map) {
-            holder.img_icon.setBackgroundResource(R.color.cat1);
+        if (point.getIcon()==R.drawable.energy_icon) {
+            holder.img_icon.setBackgroundResource(R.color.ev_charge);
+            holder.img_dir.setBackgroundResource(R.color.ev_charge);
+            holder.txt_cat.setBackgroundResource(R.color.ev_charge);
+            holder.txt_dist.setBackgroundResource(R.color.ev_charge);
+            holder.txt_name.setBackgroundResource(R.color.ev_charge);
+        } else if (point.getIcon()==R.drawable.transportation_icon) {
+            holder.img_icon.setBackgroundResource(R.color.bike);
+            holder.img_dir.setBackgroundResource(R.color.bike);
+            holder.txt_cat.setBackgroundResource(R.color.bike);
+            holder.txt_dist.setBackgroundResource(R.color.bike);
+            holder.txt_name.setBackgroundResource(R.color.bike);
+        } else if (point.getIcon()==R.drawable.community_icon) {
+            holder.img_icon.setBackgroundResource(R.color.soup);
+            holder.img_dir.setBackgroundResource(R.color.soup);
+            holder.txt_cat.setBackgroundResource(R.color.soup);
+            holder.txt_dist.setBackgroundResource(R.color.soup);
+            holder.txt_name.setBackgroundResource(R.color.soup);
+        } else if (point.getIcon()==R.drawable.food_icon) {
+            holder.img_icon.setBackgroundResource(R.color.food);
+            holder.img_dir.setBackgroundResource(R.color.food);
+            holder.txt_cat.setBackgroundResource(R.color.food);
+            holder.txt_dist.setBackgroundResource(R.color.food);
+            holder.txt_name.setBackgroundResource(R.color.food);
         }
+
         holder.img_dir.setImageResource(point.getDir());
         holder.txt_cat.setText(point.getCat());
         holder.txt_dist.setText(df.format(point.getDist()));

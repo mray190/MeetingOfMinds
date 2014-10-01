@@ -15,7 +15,7 @@
         android:src="@drawable/ic_launcher"
         android:layout_gravity="center_horizontal"
         android:paddingTop="5dp"
-        android:background="@color/cat2"
+        android:background="@color/bike"
 
         />
 
@@ -29,7 +29,7 @@
         android:textStyle="bold"
         android:gravity="center_vertical"
         android:layout_gravity="center_horizontal"
-        android:background="@color/cat2" />
+        android:background="@color/bike" />
 
 
 

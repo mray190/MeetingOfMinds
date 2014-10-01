@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <color name="cat1">#ff14a10d</color>
-    <color name="cat2">#ff2f3ea9</color>
-    <color name="cat3">#ffc74747</color>
-    <color name="cat4">#ffb39612</color>
+    <color name="ev_charge">#7f17b310</color>
+    <color name="bike">#ac2f3ea9</color>
+    <color name="soup">#afc74747</color>
+    <color name="food">#c0b39612</color>
     <color name="header">#fd2d6a2c</color>
     <color name="white">#ffffffff</color>
     <color name="grey">#ffb6b6b6</color>
-    <color name="widget">#ff000000</color>
+    <color name="widget">#ff595959</color>
 </resources>

@@ -2,15 +2,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin"
-    android:background="@color/header"
+    android:background="@color/grey"
     android:orientation="vertical">
 
     <ImageButton
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/widget_button"
         android:layout_gravity="center"
-        />
+        android:id="@+id/widget_button"/>
+        <!--android:minHeight="40dp"
+        android:minWidth="110dp"-->
+
 
 
 

@@ -41,7 +41,7 @@ public class PointCatSubAdapter extends ArrayAdapter<Point> {
             row = inflater.inflate(layoutResourceId, parent, false);
             holder = new PointCatSubHolder();
             holder.img_dir = (ImageView)row.findViewById(R.id.img_dir_catsub);
-            holder.txt_rate = (TextView)row.findViewById(R.id.txt_rate_catsub);
+           // holder.txt_rate = (TextView)row.findViewById(R.id.txt_rate_catsub);
             holder.txt_dist = (TextView)row.findViewById(R.id.txt_dist_catsub);
             holder.txt_name = (TextView)row.findViewById(R.id.txt_name_catsub);
 
@@ -51,6 +51,23 @@ public class PointCatSubAdapter extends ArrayAdapter<Point> {
         }
         Point point = data.get(position);
         holder.img_dir.setImageResource(point.getDir());
+        if (point.getIcon()==R.drawable.energy_icon) {
+            holder.img_dir.setBackgroundResource(R.color.ev_charge);
+            holder.txt_dist.setBackgroundResource(R.color.ev_charge);
+            holder.txt_name.setBackgroundResource(R.color.ev_charge);
+        } else if (point.getIcon()==R.drawable.transportation_icon) {
+            holder.img_dir.setBackgroundResource(R.color.bike);
+            holder.txt_dist.setBackgroundResource(R.color.bike);
+            holder.txt_name.setBackgroundResource(R.color.bike);
+        } else if (point.getIcon()==R.drawable.community_icon) {
+            holder.img_dir.setBackgroundResource(R.color.soup);
+            holder.txt_dist.setBackgroundResource(R.color.soup);
+            holder.txt_name.setBackgroundResource(R.color.soup);
+        } else if (point.getIcon()==R.drawable.food_icon) {
+            holder.img_dir.setBackgroundResource(R.color.food);
+            holder.txt_dist.setBackgroundResource(R.color.food);
+            holder.txt_name.setBackgroundResource(R.color.food);
+        }
         holder.txt_rate.setText(point.getCat());
         holder.txt_dist.setText(df.format(point.getDist()));
         holder.txt_name.setText(point.getName());

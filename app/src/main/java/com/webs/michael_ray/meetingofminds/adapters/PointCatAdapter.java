@@ -49,6 +49,19 @@ public class PointCatAdapter extends ArrayAdapter<Point> {
         }
         Point point = data.get(position);
         holder.img_icon.setImageResource(point.getIcon());
+        if (point.getIcon()==R.drawable.energy_icon) {
+            holder.img_icon.setBackgroundResource(R.color.ev_charge);
+            holder.txt_cat.setBackgroundResource(R.color.ev_charge);
+        } else if (point.getIcon()==R.drawable.transportation_icon) {
+            holder.img_icon.setBackgroundResource(R.color.bike);
+            holder.txt_cat.setBackgroundResource(R.color.bike);
+        } else if (point.getIcon()==R.drawable.community_icon) {
+            holder.img_icon.setBackgroundResource(R.color.soup);
+            holder.txt_cat.setBackgroundResource(R.color.soup);
+        } else if (point.getIcon()==R.drawable.food_icon) {
+            holder.img_icon.setBackgroundResource(R.color.food);
+            holder.txt_cat.setBackgroundResource(R.color.food);
+        }
         holder.txt_cat.setText(point.getCat());
         return row;
     }

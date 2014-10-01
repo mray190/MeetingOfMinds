@@ -15,7 +15,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:id="@+id/txt_cat_fragcatsub"
-        android:background="@color/cat4"
+        android:background="@color/food"
         />
 
     <ListView
