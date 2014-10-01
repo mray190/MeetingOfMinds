@@ -67,7 +67,10 @@ public class PointCatSubAdapter extends ArrayAdapter<Point> {
             holder.img_dir.setBackgroundResource(R.color.food);
             holder.txt_dist.setBackgroundResource(R.color.food);
             holder.txt_name.setBackgroundResource(R.color.food);
-        }
+        } else if (point.getIcon()==R.drawable.facilities_icon) {
+            holder.img_dir.setBackgroundResource(R.color.home);
+            holder.txt_dist.setBackgroundResource(R.color.home);
+            holder.txt_name.setBackgroundResource(R.color.home); }
         holder.txt_rate.setText(point.getCat());
         holder.txt_dist.setText(df.format(point.getDist()));
         holder.txt_name.setText(point.getName());

@@ -61,7 +61,9 @@ public class PointCatAdapter extends ArrayAdapter<Point> {
         } else if (point.getIcon()==R.drawable.food_icon) {
             holder.img_icon.setBackgroundResource(R.color.food);
             holder.txt_cat.setBackgroundResource(R.color.food);
-        }
+        } else if (point.getIcon()==R.drawable.facilities_icon) {
+            holder.img_icon.setBackgroundResource(R.color.home);
+            holder.txt_cat.setBackgroundResource(R.color.home); }
         holder.txt_cat.setText(point.getCat());
         return row;
     }

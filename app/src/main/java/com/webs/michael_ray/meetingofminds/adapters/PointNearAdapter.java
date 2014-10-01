@@ -76,7 +76,12 @@ public class PointNearAdapter extends ArrayAdapter<Point> {
             holder.txt_cat.setBackgroundResource(R.color.food);
             holder.txt_dist.setBackgroundResource(R.color.food);
             holder.txt_name.setBackgroundResource(R.color.food);
-        }
+        } else if (point.getIcon()==R.drawable.facilities_icon) {
+            holder.img_icon.setBackgroundResource(R.color.home);
+            holder.img_dir.setBackgroundResource(R.color.home);
+            holder.txt_cat.setBackgroundResource(R.color.home);
+            holder.txt_dist.setBackgroundResource(R.color.home);
+            holder.txt_name.setBackgroundResource(R.color.home); }
 
         holder.img_dir.setImageResource(point.getDir());
         holder.txt_cat.setText(point.getCat());
