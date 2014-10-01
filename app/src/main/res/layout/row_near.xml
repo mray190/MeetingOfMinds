@@ -40,4 +40,13 @@
         android:textSize="20dp"
         android:gravity="center_horizontal"
         android:layout_gravity="center_vertical"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".2"
+        android:id="@+id/img_dir_near"
+        android:src="@drawable/ic_launcher"
+        android:paddingLeft="5dp"
+        android:gravity="center_vertical"/>
 </LinearLayout>
