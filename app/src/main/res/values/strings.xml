@@ -13,4 +13,9 @@
     <string name="tab2">Categories</string>
     <string name="tab3">Favorites</string>
     <string name="colorcat1">#ff31ff3f</string>
+    <string name="pref_authenticate">Authentication</string>
+    <string name="pref_user">Username</string>
+    <string name="pref_password">Password</string>
+    <string name="title_activity_setting">SettingActivity</string>
+
 </resources>

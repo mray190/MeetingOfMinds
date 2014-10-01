@@ -3,6 +3,8 @@ package com.webs.michael_ray.meetingofminds.logic;
 
 import android.location.Location;
 
+import com.webs.michael_ray.meetingofminds.R;
+
 import java.sql.Time;
 
 /**
