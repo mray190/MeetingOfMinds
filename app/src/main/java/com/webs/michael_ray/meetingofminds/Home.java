@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.webs.michael_ray.meetingofminds.adapters.TabsAdapter;
+
 public class Home extends FragmentActivity implements ActionBar.TabListener {
 
     private ViewPager mPager;

@@ -1,4 +1,4 @@
-package com.webs.michael_ray.meetingofminds;
+package com.webs.michael_ray.meetingofminds.adapters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 import android.view.ViewGroup;
+
+import com.webs.michael_ray.meetingofminds.CategoryFragment;
+import com.webs.michael_ray.meetingofminds.FavoritesFragment;
+import com.webs.michael_ray.meetingofminds.NearFragment;
 
 public class TabsAdapter extends FragmentPagerAdapter {
     private SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
