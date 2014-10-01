@@ -234,7 +234,7 @@ public class DatabaseManager {
 
     public boolean insertPoint(Point point) throws IOException {
         //Request
-        String request = "http://shaneschulte.com/motm/findFavorites.php";
+        String request = "http://shaneschulte.com/motm/insertPoint.php";
 
         //Params
         List<NameValuePair> pairs = new ArrayList<NameValuePair>(5);
