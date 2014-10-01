@@ -42,10 +42,16 @@
             android:src="@drawable/energy_icon"
             android:background="@color/ev_charge"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
+            android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
             android:id="@+id/txt_dist_catsub"
             android:text="distance"
             android:textStyle="bold"
@@ -53,6 +59,19 @@
             android:gravity="center_horizontal"
             android:background="@color/ev_charge"/>
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:id="@+id/txt_unit_catsub"
+            android:text="m"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:background="@color/ev_charge"
+            android:paddingRight="5dp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
 
 
     </LinearLayout>

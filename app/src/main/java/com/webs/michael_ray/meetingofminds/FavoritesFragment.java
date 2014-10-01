@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class FavoritesFragment extends ListFragment {
     private int userID;
+    private PointNearAdapter pAdapter;
+    private ArrayList<Point> points;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +34,14 @@ public class FavoritesFragment extends ListFragment {
         //getFav.execute();
     }
 
+    public ArrayList<Point> getPoints() { return points; }
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
     }
 
     private class GetFav extends AsyncTask<Void, Integer, Void> {
-        private PointNearAdapter pAdapter;
-        private ArrayList<Point> points;
         @Override
         protected Void doInBackground(Void...params) {
             try {
