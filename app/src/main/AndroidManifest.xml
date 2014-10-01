@@ -25,5 +25,5 @@
                 android:value="com.webs.michael_ray.meetingofminds.Home" />
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" /><uses-permission android:name="android.permission.INTERNET" />
 </manifest>
