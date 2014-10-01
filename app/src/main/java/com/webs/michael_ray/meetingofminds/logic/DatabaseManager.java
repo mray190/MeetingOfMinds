@@ -18,6 +18,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -104,6 +106,12 @@ public class DatabaseManager {
             ));
         }
 
+        Collections.sort(points, new Comparator<Point>() {
+            @Override
+            public int compare(Point lhs, Point rhs) {
+                return (int)(lhs.getDist() - rhs.getDist());
+            }
+        });
         return points;
     }
 
