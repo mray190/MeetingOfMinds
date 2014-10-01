@@ -45,6 +45,7 @@ public class PointNearAdapter extends ArrayAdapter<Point> {
             holder.txt_cat = (TextView)row.findViewById(R.id.txt_cat_near);
             holder.txt_dist = (TextView)row.findViewById(R.id.txt_dist_near);
             holder.txt_name = (TextView)row.findViewById(R.id.txt_name_near);
+            holder.txt_unit = (TextView)row.findViewById(R.id.txt_unit_near);
 
             row.setTag(holder);
         } else {
@@ -56,23 +57,27 @@ public class PointNearAdapter extends ArrayAdapter<Point> {
             holder.img_icon.setBackgroundResource(R.color.ev_charge);
             holder.img_dir.setBackgroundResource(R.color.ev_charge);
             holder.txt_cat.setBackgroundResource(R.color.ev_charge);
+            holder.txt_unit.setBackgroundResource(R.color.ev_charge);
             holder.txt_dist.setBackgroundResource(R.color.ev_charge);
             holder.txt_name.setBackgroundResource(R.color.ev_charge);
         } else if (point.getIcon()==R.drawable.transportation_icon) {
             holder.img_icon.setBackgroundResource(R.color.bike);
             holder.img_dir.setBackgroundResource(R.color.bike);
+            holder.txt_unit.setBackgroundResource(R.color.bike);
             holder.txt_cat.setBackgroundResource(R.color.bike);
             holder.txt_dist.setBackgroundResource(R.color.bike);
             holder.txt_name.setBackgroundResource(R.color.bike);
         } else if (point.getIcon()==R.drawable.community_icon) {
             holder.img_icon.setBackgroundResource(R.color.soup);
             holder.img_dir.setBackgroundResource(R.color.soup);
+            holder.txt_unit.setBackgroundResource(R.color.soup);
             holder.txt_cat.setBackgroundResource(R.color.soup);
             holder.txt_dist.setBackgroundResource(R.color.soup);
             holder.txt_name.setBackgroundResource(R.color.soup);
         } else if (point.getIcon()==R.drawable.food_icon) {
             holder.img_icon.setBackgroundResource(R.color.food);
             holder.img_dir.setBackgroundResource(R.color.food);
+            holder.txt_unit.setBackgroundResource(R.color.food);
             holder.txt_cat.setBackgroundResource(R.color.food);
             holder.txt_dist.setBackgroundResource(R.color.food);
             holder.txt_name.setBackgroundResource(R.color.food);
@@ -80,6 +85,7 @@ public class PointNearAdapter extends ArrayAdapter<Point> {
             holder.img_icon.setBackgroundResource(R.color.home);
             holder.img_dir.setBackgroundResource(R.color.home);
             holder.txt_cat.setBackgroundResource(R.color.home);
+            holder.txt_unit.setBackgroundResource(R.color.home);
             holder.txt_dist.setBackgroundResource(R.color.home);
             holder.txt_name.setBackgroundResource(R.color.home); }
 
@@ -92,6 +98,6 @@ public class PointNearAdapter extends ArrayAdapter<Point> {
 
     static class PointNearHolder {
         ImageView img_icon, img_dir;
-        TextView txt_cat, txt_name, txt_dist;
+        TextView txt_cat, txt_name, txt_dist, txt_unit;
     }
 }
