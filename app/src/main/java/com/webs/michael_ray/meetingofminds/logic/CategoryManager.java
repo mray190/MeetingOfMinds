@@ -30,11 +30,11 @@ public class CategoryManager {
 
         switch (outerIndex){
             case 0: return R.drawable.community_icon;
-            case 1: return R.drawable.facilities_icon;
-            case 2: return R.drawable.food_icon;
-            case 3: return R.drawable.energy_icon;
+            case 1: return R.drawable.energy_icon;
+            case 2: return R.drawable.facilities_icon;
+            case 3: return R.drawable.food_icon;
             case 4: return R.drawable.transportation_icon;
-            default: return R.drawable.food_icon;
+            default: return R.drawable.facilities_icon;
         }
     }
 }
