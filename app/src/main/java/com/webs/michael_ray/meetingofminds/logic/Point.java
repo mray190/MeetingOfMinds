@@ -64,61 +64,8 @@ public class Point {
             int votes,
             int uid,
             Time time
-    ){
+    ) {
         //TODO
-
-        /*
-    private ArrayList<Point> convertToPoints(ResultSet data) throws SQLException{
-        ArrayList<Point> points = new ArrayList<Point>();
-
-        while (data.next()){
-            points.add(
-                    new Point(
-                        data.getInt("sid"),
-                        data.getDouble("lat"),
-                        data.getDouble("long"),
-                        data.getInt("type"),
-                        data.getInt("reports"),
-                        data.getString("description"),
-                        data.getInt("rating"),
-                        data.getInt("votes"),
-                        data.getInt("uid"),
-                        data.getTime("time")
-                    )
-            );
-        }
-
-        return points;
-    }
-         */
-
-
-
-        /*
-
-        //Get all the point IDs associated with the userID
-        ResultSet subIds = query(
-                "SELECT sid " +
-                "FROM favorites " +
-                "WHERE uid = '" + userId + "'"
-        );
-
-        //Container
-        ArrayList<Point> points = new ArrayList<Point>();
-
-        //Converts all favorite point IDs to the Java container
-        while (subIds.next()){
-            ResultSet pointData = query(
-                    "SELECT * " +
-                    "FROM submissions " +
-                    "WHERE sid = '" + subIds.getInt("sid") + "'"
-            );
-
-            points.addAll(convertToPoints(pointData));
-        }
-
-        return points;
-         */
     }
     //----------------------------------------------------------------------------------------------
 
