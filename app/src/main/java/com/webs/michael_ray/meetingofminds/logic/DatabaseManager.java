@@ -235,7 +235,7 @@ public class DatabaseManager {
         if(points.next()) {
             return false;
         }
-        query("INSERT INTO users (uid, latitude, longitude, type, description) VALUES " +
+        query("INSERT INTO submissions (uid, latitude, longitude, type, description) VALUES " +
                 "('"+userId+"', '"+latitude+"', '"+longitude+"', '"+category+"', '"+description+"')");
         return true;
     }
