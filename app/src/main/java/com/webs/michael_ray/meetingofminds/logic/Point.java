@@ -101,6 +101,10 @@ public class Point {
         loc.setLongitude(this.longitude);
         return loc;
     }
+
+    public void setCurrentLocation(Location loc){
+        this.currentLocation = loc;
+    }
     //----------------------------------------------------------------------------------------------
 
 
