@@ -6,9 +6,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
@@ -28,7 +32,7 @@ import com.google.android.gms.location.LocationClient;
 import com.webs.michael_ray.meetingofminds.adapters.TabsAdapter;
 import com.webs.michael_ray.meetingofminds.logic.DatabaseManager;
 
-public class Home extends FragmentActivity implements ActionBar.TabListener, GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
+public class Home extends FragmentActivity implements LocationListener, ActionBar.TabListener, GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
     private ViewPager mPager;
     private TabsAdapter mPagerAdapter;
@@ -77,37 +81,54 @@ public class Home extends FragmentActivity implements ActionBar.TabListener, Goo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         managePageNavigation();
-        login();
+        Login login = new Login(this);
+        login.execute();
     }
 
-    private void login() {
-        try {
-            int id = DatabaseManager.dm.authUser(prefs.getString("pref_username",""),prefs.getString("pref_password",""));
-            Toast.makeText(this, "ID: " + Integer.toString(id), Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Fail", Toast.LENGTH_LONG).show();
+    private class Login extends AsyncTask<Void, Integer, Void> {
+        private Context context;
+        public Login(Context context) {
+            this.context = context;
         }
+        @Override
+        protected Void doInBackground(Void...params) {
+            try {
+                int id = DatabaseManager.dm.authUser(prefs.getString("pref_username",""),prefs.getString("pref_password",""));
+                publishProgress(id);
+            } catch (Exception e) {
+                e.printStackTrace();
+                publishProgress(-1);
+            }
+            return null;
+        }
+        protected void onProgressUpdate(Integer...progress) {
+            Toast.makeText(context, "ID: " + Integer.toString(progress[0]), Toast.LENGTH_LONG).show();
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Toast.makeText(this, "Location Changed", Toast.LENGTH_LONG).show();
     }
 
     public void addPoint(View view) {
         AddPoint dialog = new AddPoint();
-        if (servicesConnected()) {
-            Toast.makeText(this, "Services Connected", Toast.LENGTH_LONG).show();
-        }
+        Location location = null;
+        if (servicesConnected())
+            location = mLocationClient.getLastLocation();
+        dialog.insertLocation(location);
         dialog.show(getFragmentManager(), "dialog");
     }
 
-    @Override
-    public void onConnected(Bundle bundle) { }
-
-    @Override
-    public void onDisconnected() { }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) { }
 
     public static class AddPoint extends DialogFragment {
+        private Location location;
+        public void insertLocation(Location location) {
+            this.location = location;
+        }
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
@@ -129,6 +150,36 @@ public class Home extends FragmentActivity implements ActionBar.TabListener, Goo
             return builder.create();
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mLocationClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        mLocationClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) { }
+
+    @Override
+    public void onDisconnected() { }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) { }
+
+    @Override
+    public void onProviderEnabled(String provider) { }
+
+    @Override
+    public void onProviderDisabled(String provider) { }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) { }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
