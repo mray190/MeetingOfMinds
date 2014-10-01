@@ -28,6 +28,9 @@ public class DatabaseManager {
     private final double long_range = 0.05;
     private final double lat_range  = 0.05;
 
+    private final double long_range_min = 0.001/3;
+    private final double lat_range_min  = 0.001/3;
+
     //pls dont touch
     private static final String md5(final String s) {
         try {
@@ -208,12 +211,33 @@ public class DatabaseManager {
 
     //Point operations
     //----------------------------------------------------------------------------------------------
-    public void findDetails(Point data){
-
+    public void getComments(Point data){
+        //TODO
     }
 
-    public boolean insertPoint(Location loc, int category, String description, int userId){
-        return false;
+    /**
+     *
+     * @param loc Location the point should be placed
+     * @param category integer representation of category
+     * @param description a short description (think name) [please sanitize, 22 char max]
+     * @param userId uid returned from authUser
+     * @return true/false based on success of submission
+     * @throws SQLException sorry michael
+     */
+    public boolean insertPoint(Location loc, int category, String description, int userId) throws SQLException {
+        double longitude = loc.getLongitude();
+        double latitude  = loc.getLatitude();
+        ResultSet points = query("SELECT * FROM submissions WHERE " +
+                " and longitude > " + (longitude - long_range_min) +
+                " and latitude  > " + (latitude  -  lat_range_min) +
+                " and longitude < " + (longitude + long_range_min) +
+                " and latitude  < " + (latitude  +  lat_range_min));
+        if(points.next()) {
+            return false;
+        }
+        query("INSERT INTO users (uid, latitude, longitude, type, description) VALUES " +
+                "('"+userId+"', '"+latitude+"', '"+longitude+"', '"+category+"', '"+description+"')");
+        return true;
     }
     //-------------------------- --------------------------------------------------------------------
 
