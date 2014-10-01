@@ -147,15 +147,30 @@ public class DatabaseManager {
      * @param password
      * @return User id. Returns -1 on failure
      */
-    public int authUser(String username, String password) throws SQLException {
+    public int authUser(String username, String password) throws IOException {
         String hash = md5(password);
-        ResultSet checkUsername = query("SELECT * FROM users WHERE username='"+username+"'");
-        if(checkUsername.next()) {
-            if(checkUsername.getString("password") == hash) {
-                return checkUsername.getInt("uid");
-            }
-        }
-        return -1;
+        String urlParameters = "username=" + username + "&hash=" + hash;
+
+        //Requests
+        String request = "http://shaneschulte.com/motm/authUser.php";
+        URL url = new URL(request);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        connection.setInstanceFollowRedirects(false);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        connection.setRequestProperty("charset", "utf-8");
+        connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+        connection.setUseCaches (false);
+
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        wr.writeBytes(urlParameters);
+        wr.flush();
+        wr.close();
+        connection.disconnect();
+
+        return 0;
     }
     //----------------------------------------------------------------------------------------------
 
@@ -262,6 +277,10 @@ public class DatabaseManager {
     //Sequel
     //----------------------------------------------------------------------------------------------
     private ResultSet query(String sqlStatement) throws SQLException {
+        if (true){
+            return null;
+        }
+
         String url      = "jdbc:mysql://shaneschulte.com:3306/";
         String db       = "schul030_meeting_of_the_minds";
         String username = "schul030_motm";
