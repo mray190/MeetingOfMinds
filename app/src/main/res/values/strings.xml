@@ -22,5 +22,6 @@
     <string name="add_widget">Add widget</string>
     <string name="title_activity_maps">Map</string>
     <string name="action_map">Map</string>
+    <string name="title_activity_background">Background</string>
 
 </resources>

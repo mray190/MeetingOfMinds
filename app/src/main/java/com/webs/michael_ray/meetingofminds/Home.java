@@ -23,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -147,7 +146,6 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(this, "Changed", Toast.LENGTH_SHORT).show();
         currentLoc = location;
         updateLists();
     }
