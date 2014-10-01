@@ -65,10 +65,16 @@ public class DatabaseManager {
     private ArrayList<Point> convertToPoints(String rows, Location loc){
         ArrayList<Point> points = new ArrayList<Point>();
 
+        if(rows.equals("")) return points;
+
         String[] rowSet = rows.split("\\r?\\n");
 
+
         for (String row: rowSet){
+            if(row.equals("")) break;
             String[] vals = row.split(",");
+
+
 
             points.add(new Point(
                Integer.parseInt(vals[0]),           //userId
