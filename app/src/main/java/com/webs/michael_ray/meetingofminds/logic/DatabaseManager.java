@@ -1,11 +1,19 @@
 package com.webs.michael_ray.meetingofminds.logic;
 
 import android.location.Location;
+import android.util.Log;
 
-import java.io.DataInputStream;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -14,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Aaron Barber on 30/09/14.
@@ -58,33 +67,28 @@ public class DatabaseManager {
         return "";
     }
 
-    /**
-     *
-     * @param data ResultSet from a query
-     * @return ArrayList of points
-     * @throws SQLException
-     */
-    private ArrayList<Point> convertToPoints(ResultSet data) throws SQLException{
+    private ArrayList<Point> convertToPoints(String rows, Location loc){
         ArrayList<Point> points = new ArrayList<Point>();
 
-        while (data.next()){
-            String category = data.getString("type");
-            points.add(
-                    new Point(
-                            data.getInt("uid"),
-                            data.getInt("sid"),
-                            false, //TODO is favorite
-                            category,
-                            CategoryManager.resource(category),
-                            data.getString("description"),
-                            data.getDouble("lat"),
-                            data.getDouble("long"),
-                            data.getInt("reports"),
-                            data.getInt("votes"),
-                            data.getInt("rating"),
-                            data.getTime("time")
-                    )
-            );
+        String[] rowSet = rows.split("\\r?\\n");
+
+        for (String row: rowSet){
+            String[] vals = row.split(",");
+
+            points.add(new Point(
+               Integer.parseInt(vals[0]),           //userId
+               Integer.parseInt(vals[1]),           //subId
+               false,                               //favorite
+               vals[3],                             //category
+               CategoryManager.resource(vals[4]),   //categoryIconCode
+               vals[5],                             //names
+               Double.parseDouble(vals[6]),         //latitude
+               Double.parseDouble(vals[7]),         //longitude
+               Integer.parseInt(vals[8]),           //numReports
+               Integer.parseInt(vals[9]),           //numVotes
+               Double.parseDouble(vals[10]),        //rating
+               Integer.parseInt(vals[11])           //time
+            ));
         }
 
         return points;
@@ -106,38 +110,50 @@ public class DatabaseManager {
     //----------------------------------------------------------------------------------------------
 
 
-    private String post(String params, String request) throws IOException{
-        URL url = new URL(request);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
-        connection.setInstanceFollowRedirects(false);
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        connection.setRequestProperty("charset", "utf-8");
-        connection.setRequestProperty("Content-Length", "" + Integer.toString(params.getBytes().length));
-        connection.setUseCaches (false);
+    private String post(String url, List<NameValuePair> pairs) throws IOException{
+        // Create a new HttpClient and Post Header
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost(url);
 
-        DataInputStream is = new DataInputStream(connection.getInputStream());
-        String tmp = is.toString();
-        is.close();
-        connection.disconnect();
+        try {
+            // Add your data
+            httppost.setEntity(new UrlEncodedFormEntity(pairs));
 
-        if (tmp == null || tmp.equals("")){
-            throw new IOException();
+            // Execute HTTP Post Request
+            HttpResponse response = httpclient.execute(httppost);
+
+            return EntityUtils.toString(response.getEntity());
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
         }
 
-        return tmp;
+        return "Exception";
     }
 
     //User functions
     //----------------------------------------------------------------------------------------------
 
     public int createUser(String username, String password) throws IOException {
+        //Computation
         String hash = md5(password);
-        String urlParameters = "username=" + username + "&hash=" + hash;
+
+        //Request
         String request = "http://shaneschulte.com/motm/createUser.php";
-        return Integer.parseInt(post(urlParameters, request));
+
+        //Params
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>(2);
+        pairs.add(new BasicNameValuePair("username", username));
+        pairs.add(new BasicNameValuePair("hash", hash));
+
+        String tmp = post(request, pairs);
+        Log.d("bullshit", tmp);
+        Log.d("user", username);
+        Log.d("hash", hash);
+        Log.d("pass", password);
+
+        return Integer.parseInt(tmp);
     }
 
     /**
@@ -147,26 +163,35 @@ public class DatabaseManager {
      * @return User id. Returns -1 on failure
      */
     public int authUser(String username, String password) throws IOException {
+        //Computation
         String hash = md5(password);
-        String urlParameters = "username=" + username + "&hash=" + hash;
+
+        //Request
         String request = "http://shaneschulte.com/motm/authUser.php";
-        return Integer.parseInt(post(urlParameters, request));
+
+        //Params
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>(2);
+        pairs.add(new BasicNameValuePair("username", username));
+        pairs.add(new BasicNameValuePair("hash", hash));
+
+        return Integer.parseInt(post(request, pairs));
     }
     //----------------------------------------------------------------------------------------------
 
 
     //Find Points
     //----------------------------------------------------------------------------------------------
-    private ArrayList<Point> findNearHelper(Location loc, String append) throws SQLException {
-        double longitude = loc.getLongitude();
-        double latitude  = loc.getLatitude();
-        ResultSet points = query("SELECT * FROM submissions WHERE " +
-                " and longitude > " + (longitude - long_range) +
-                " and latitude  > " + (latitude  -  lat_range) +
-                " and longitude < " + (longitude + long_range) +
-                " and latitude  < " + (latitude  +  lat_range) +
-                append);
-        return convertToPoints(points);
+    private ArrayList<Point> findNearHelper(Location loc, String append) throws IOException {
+        //Request
+        String request = "http://shaneschulte.com/motm/findHelper.php";
+
+        //Params
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>(3);
+        pairs.add(new BasicNameValuePair("longitude", Double.toString(loc.getLongitude())));
+        pairs.add(new BasicNameValuePair("latitude", Double.toString(loc.getLatitude())));
+        pairs.add(new BasicNameValuePair("append", append));
+
+        return convertToPoints(post(request, pairs), loc);
     }
 
     /**
@@ -174,7 +199,7 @@ public class DatabaseManager {
      * @param loc Location to find points near
      * @return all the points
      */
-    public ArrayList<Point> findNear(Location loc) throws SQLException {
+    public ArrayList<Point> findNear(Location loc) throws IOException {
         return findNearHelper(loc, "");
     }
 
@@ -184,7 +209,7 @@ public class DatabaseManager {
      * @param category Category to filter with
      * @return all the points
      */
-    public ArrayList<Point> findNear(Location loc, int category) throws SQLException {
+    public ArrayList<Point> findNear(Location loc, int category) throws IOException {
         return findNearHelper(loc, " AND type='"+category+"'");
     }
 
@@ -213,7 +238,7 @@ public class DatabaseManager {
                             "WHERE sid = '" + subIds.getInt("sid") + "'"
             );
 
-            points.addAll(convertToPoints(pointData));
+//            points.addAll(convertToPoints(pointData));
         }
 
         return points;

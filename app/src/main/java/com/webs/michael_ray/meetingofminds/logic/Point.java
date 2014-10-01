@@ -33,7 +33,7 @@ public class Point {
     private int numReports;
     private int numVotes;
     private double rating;
-    private Time time;
+    private int time;
     //----------------------------------------------------------------------------------------------
 
 
@@ -51,7 +51,7 @@ public class Point {
             int numReports,
             int numVotes,
             double rating,
-            Time time
+            int time
     ){
         this.userId = userId;
         this.subId = subId;
