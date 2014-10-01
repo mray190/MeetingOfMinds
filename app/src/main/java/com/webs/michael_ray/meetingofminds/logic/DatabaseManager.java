@@ -237,7 +237,7 @@ public class DatabaseManager {
         String request = "http://shaneschulte.com/motm/findFavorites.php";
 
         //Params
-        List<NameValuePair> pairs = new ArrayList<NameValuePair>(1);
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>(5);
         pairs.add(new BasicNameValuePair("longitude", Double.toString(point.getLongitude())));
         pairs.add(new BasicNameValuePair("latitude", Double.toString(point.getLatitude())));
         pairs.add(new BasicNameValuePair("category", point.getCat()));

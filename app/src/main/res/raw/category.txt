@@ -1,0 +1,7 @@
+Energy, Electrical Vehicle Charging, Electrical Outlet, Recycle Bin, Trash Can
+Community, Church, Garden, Homeless Shelter, Homeless Person, Overgrown Lot, Pothole, Rundown Building, Trail
+Food, Fast Food, Food Truck, Ice Cream, Restaurant, Vending Machine
+Transportation, Bike Rack, Motorcycle Parking
+//,Buildings, Business, Fire Station, Movie Theater, Museum, Police Station, Post Office, School
+//,Events, Charity, Running, Sports
+//,Living, Bathroom, Water Fountain

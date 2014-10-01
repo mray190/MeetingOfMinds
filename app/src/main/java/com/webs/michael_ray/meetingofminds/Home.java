@@ -107,7 +107,6 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
         }
         protected void onProgressUpdate(Integer...progress) {
             userID = progress[0];
-            Toast.makeText(context, "ID: " + Integer.toString(progress[0]), Toast.LENGTH_LONG).show();
         }
         @Override
         protected void onPostExecute(Void result) {
@@ -139,6 +138,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
 
     @Override
     public void onLocationChanged(Location location) {
+        Toast.makeText(this, "Changed", Toast.LENGTH_SHORT).show();
         currentLoc = location;
         updateLists();
     }

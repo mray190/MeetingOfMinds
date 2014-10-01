@@ -6,6 +6,7 @@ package com.webs.michael_ray.meetingofminds.logic;
 public class CategoryManager {
 
     public static int resource(String category){
+
         //TODO
         return 0;
     }
