@@ -6,10 +6,10 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import com.webs.michael_ray.meetingofminds.adapters.PointCatAdapter;
 import com.webs.michael_ray.meetingofminds.adapters.PointNearAdapter;
 import com.webs.michael_ray.meetingofminds.logic.CategoryManager;
 import com.webs.michael_ray.meetingofminds.logic.DatabaseManager;
@@ -23,9 +23,10 @@ import java.util.ArrayList;
 
 public class CategoryFragment extends ListFragment {
     private Location location;
+    private PointCatAdapter pcAdapter;
     private ArrayList<Point> points;
-    private PointNearAdapter pAdapter;
     private String category;
+    private int advanced;
     public static ArrayList<ArrayList<String>> categories;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -50,16 +51,22 @@ public class CategoryFragment extends ListFragment {
                 points.add(point);
             }
         }
-        pAdapter = new PointNearAdapter(getActivity(), R.layout.row_near, points);
-        setListAdapter(pAdapter);
+        advanced = 0;
+        pcAdapter = new PointCatAdapter(getActivity(), R.layout.row_catmain, points);
+        setListAdapter(pcAdapter);
     }
 
     public ArrayList<Point> getPoints() {
-        return points;
+        if (advanced==0) {
+            return new ArrayList<Point>();
+        } else {
+            return points;
+        }
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+        advanced = 1;
         category = points.get(position).getCat();
         GetCategory getCategory = new GetCategory();
         getCategory.execute();
@@ -102,13 +109,13 @@ public class CategoryFragment extends ListFragment {
     }
 
     private class GetCategory extends AsyncTask<Void, Integer, Void> {
+        private PointNearAdapter pAdapter;
         @Override
         protected Void doInBackground(Void...params) {
             try {
                 points = DatabaseManager.dm.findNear(location,category);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("MyApp","Not working");
                 points = new ArrayList<Point>();
             }
             return null;

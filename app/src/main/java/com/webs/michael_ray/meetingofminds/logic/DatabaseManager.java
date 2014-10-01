@@ -1,7 +1,6 @@
 package com.webs.michael_ray.meetingofminds.logic;
 
 import android.location.Location;
-import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -64,7 +63,6 @@ public class DatabaseManager {
 
     private ArrayList<Point> convertToPoints(String rows, Location loc){
         ArrayList<Point> points = new ArrayList<Point>();
-
         if (rows.equals("")){
             return points;
         }
@@ -103,7 +101,6 @@ public class DatabaseManager {
                loc                                  //current location
             ));
         }
-
         return points;
     }
 
@@ -160,10 +157,6 @@ public class DatabaseManager {
         pairs.add(new BasicNameValuePair("hash", hash));
 
         String tmp = post(request, pairs);
-        Log.d("bullshit", tmp);
-        Log.d("user", username);
-        Log.d("hash", hash);
-        Log.d("pass", password);
 
         return Integer.parseInt(tmp);
     }
@@ -217,7 +210,7 @@ public class DatabaseManager {
      * @return all the points
      */
     public ArrayList<Point> findNear(Location loc, String category) throws IOException {
-        return findNearHelper(loc, " AND type='"+category+"'");
+        return findNearHelper(loc, category);
     }
 
     /**

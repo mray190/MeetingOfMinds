@@ -44,6 +44,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
     private SharedPreferences prefs;
     private LocationClient mLocationClient;
     private Location currentLoc;
+    private int currentTab;
     private int userID;
 
     private void managePageNavigation() {
@@ -62,7 +63,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
 
         mPagerAdapter = new TabsAdapter(fm);
         mPager.setAdapter(mPagerAdapter);
-        mPager.setOffscreenPageLimit(5);
+        mPager.setOffscreenPageLimit(3);
 
         mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageSelected(int position) { actionBar.setSelectedNavigationItem(position); }
@@ -72,7 +73,6 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
 
         //Create the tabs and fragments
         ActionBar.Tab tab1 = actionBar.newTab().setText(getResources().getString(R.string.tab1));
-        //tab1
         actionBar.addTab(tab1.setTabListener(this));
         ActionBar.Tab tab2 = actionBar.newTab().setText(getResources().getString(R.string.tab2));
         actionBar.addTab(tab2.setTabListener(this));
@@ -268,20 +268,31 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
             return true;
         } else if (id== R.id.action_map) {
             Intent intent = new Intent(this, Maps.class);
-            ArrayList<Point> points = ((NearFragment) mPagerAdapter.getRegisteredFragment(0)).getPoints();
-            startActivity(setPins(intent,points));
+            ArrayList<Point> points;
+            if (currentTab==0) {
+                points = ((NearFragment) mPagerAdapter.getRegisteredFragment(currentTab)).getPoints();
+            } else if (currentTab==1) {
+                points = ((CategoryFragment) mPagerAdapter.getRegisteredFragment(currentTab)).getPoints();
+            } else {
+                points = ((FavoritesFragment) mPagerAdapter.getRegisteredFragment(currentTab)).getPoints();
+            }
+            startActivity(setPins(intent, points));
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) { }
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        currentTab =tab.getPosition();
+        supportInvalidateOptionsMenu();
+        mPager.setCurrentItem(tab.getPosition());
+    }
 
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) { }
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+        if (currentTab==1)
+            ((CategoryFragment) mPagerAdapter.getRegisteredFragment(1)).updateList(currentLoc);
+    }
 
-    @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) { }
 
     // Global constants
