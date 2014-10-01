@@ -19,7 +19,7 @@ public class CategoryManager {
         String mainCategory = null;
 
         for (int i = 0; i < CategoryFragment.categories.size() && mainCategory == null; i++){
-            for (int j = 0; j < CategoryFragment.categories.get(j).size() && mainCategory == null; j++){
+            for (int j = 0; j < CategoryFragment.categories.get(i).size() && mainCategory == null; j++){
                 if (CategoryFragment.categories.get(i).get(j).equals(anyCategory)){
                     mainCategory = CategoryFragment.categories.get(i).get(j);
                     outerIndex = i;
@@ -30,11 +30,11 @@ public class CategoryManager {
 
         switch (outerIndex){
             case 0: return R.drawable.community_icon;
-            case 1: return R.drawable.facilities_icon;
-            case 2: return R.drawable.food_icon;
-            case 3: return R.drawable.energy_icon;
+            case 1: return R.drawable.energy_icon;
+            case 2: return R.drawable.facilities_icon;
+            case 3: return R.drawable.food_icon;
             case 4: return R.drawable.transportation_icon;
-            default: return R.drawable.food_icon;
+            default: return R.drawable.facilities_icon;
         }
     }
 }
