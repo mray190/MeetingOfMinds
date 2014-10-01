@@ -20,5 +20,7 @@
     <string name="title_activity_pin_info">PinInfo</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="action_map">Map</string>
 
 </resources>

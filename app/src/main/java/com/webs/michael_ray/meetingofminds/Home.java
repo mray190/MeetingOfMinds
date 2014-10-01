@@ -41,6 +41,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
     private FragmentManager fm;
     private SharedPreferences prefs;
     private LocationClient mLocationClient;
+    private Location currentLoc;
     private int userID;
 
     private void managePageNavigation() {
@@ -50,14 +51,14 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
         actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setTitle(getResources().getString(R.string.app_name));
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
         //actionBar.color
 
         mLocationClient = new LocationClient(this, this, this);
 
         fm = getSupportFragmentManager();
 
-        mPagerAdapter = new TabsAdapter(fm,mLocationClient.getLastLocation());
+        mPagerAdapter = new TabsAdapter(fm);
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(5);
 
@@ -131,10 +132,15 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
         }
     }
 
+    private void updateLists() {
+        ((NearFragment) mPagerAdapter.getRegisteredFragment(0)).updateList(currentLoc);
+        ((FavoritesFragment) mPagerAdapter.getRegisteredFragment(2)).updateList(userID);
+    }
+
     @Override
     public void onLocationChanged(Location location) {
-        mLocationClient.getLastLocation();
-        Toast.makeText(this, "Location Changed", Toast.LENGTH_LONG).show();
+        currentLoc = location;
+        updateLists();
     }
 
     public void addPoint(View view) {
@@ -192,7 +198,10 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
     }
 
     @Override
-    public void onConnected(Bundle bundle) { }
+    public void onConnected(Bundle bundle) {
+        currentLoc = mLocationClient.getLastLocation();
+        //updateLists();
+    }
 
     @Override
     public void onDisconnected() { }
@@ -224,6 +233,12 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id== R.id.action_map) {
+            Intent intent = new Intent(this, Maps.class);
+            intent.putExtra("latitude",currentLoc.getLatitude());
+            intent.putExtra("longitude",currentLoc.getLongitude());
             startActivity(intent);
             return true;
         }

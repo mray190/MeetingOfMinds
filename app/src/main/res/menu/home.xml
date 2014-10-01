@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Home" >
+    <item android:id="@+id/action_map"
+        android:title="@string/action_map"
+        android:icon="@drawable/ic_map"
+        android:showAsAction="always"
+        android:orderInCategory="99"
+        tools:ignore="AppCompatResource" />
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

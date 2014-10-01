@@ -17,10 +17,6 @@ import java.util.ArrayList;
 public class FavoritesFragment extends ListFragment {
     private int userID;
 
-    public FavoritesFragment(int userID) {
-        this.userID = userID;
-    }
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -29,6 +25,10 @@ public class FavoritesFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getListView().setCacheColorHint(Color.TRANSPARENT);
+    }
+
+    public void updateList(int userID) {
+        this.userID = userID;
         GetFav getFav = new GetFav();
         getFav.execute();
     }

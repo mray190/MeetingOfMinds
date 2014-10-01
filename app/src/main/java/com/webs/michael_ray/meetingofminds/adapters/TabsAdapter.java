@@ -1,6 +1,5 @@
 package com.webs.michael_ray.meetingofminds.adapters;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,13 +15,9 @@ import com.webs.michael_ray.meetingofminds.NearFragment;
 public class TabsAdapter extends FragmentPagerAdapter {
     private SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
     private FragmentManager fm;
-    private Location location;
-    private int userID;
 
-    public TabsAdapter(FragmentManager fm, Location location, int userID) {
+    public TabsAdapter(FragmentManager fm) {
         super(fm);
-        this.location = location;
-        this.userID = userID;
         this.fm = fm;
     }
 
@@ -32,7 +27,7 @@ public class TabsAdapter extends FragmentPagerAdapter {
         data.putInt("current_page", position + 1);
         switch(position){
             case 0:
-                NearFragment frag1 = new NearFragment(location);
+                NearFragment frag1 = new NearFragment();
                 frag1.setArguments(data);
                 return frag1;
             case 1:
@@ -40,7 +35,7 @@ public class TabsAdapter extends FragmentPagerAdapter {
                 frag2.setArguments(data);
                 return frag2;
             case 2:
-                FavoritesFragment frag3 = new FavoritesFragment(userID);
+                FavoritesFragment frag3 = new FavoritesFragment();
                 frag3.setArguments(data);
                 return frag3;
         }
