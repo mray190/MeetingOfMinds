@@ -22,17 +22,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.LocationClient;
 import com.webs.michael_ray.meetingofminds.adapters.TabsAdapter;
 import com.webs.michael_ray.meetingofminds.logic.DatabaseManager;
 
-public class Home extends FragmentActivity implements ActionBar.TabListener {
+public class Home extends FragmentActivity implements ActionBar.TabListener, GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
 
     private ViewPager mPager;
     private TabsAdapter mPagerAdapter;
     private ActionBar actionBar;
     private FragmentManager fm;
     private SharedPreferences prefs;
+    private LocationClient mLocationClient;
 
     private void managePageNavigation() {
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -43,6 +46,8 @@ public class Home extends FragmentActivity implements ActionBar.TabListener {
         actionBar.setTitle(getResources().getString(R.string.app_name));
         actionBar.setDisplayHomeAsUpEnabled(true);
         //actionBar.color
+
+        mLocationClient = new LocationClient(this, this, this);
 
         fm = getSupportFragmentManager();
 
@@ -88,10 +93,19 @@ public class Home extends FragmentActivity implements ActionBar.TabListener {
     public void addPoint(View view) {
         AddPoint dialog = new AddPoint();
         if (servicesConnected()) {
-
+            Toast.makeText(this, "Services Connected", Toast.LENGTH_LONG).show();
         }
         dialog.show(getFragmentManager(), "dialog");
     }
+
+    @Override
+    public void onConnected(Bundle bundle) { }
+
+    @Override
+    public void onDisconnected() { }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) { }
 
     public static class AddPoint extends DialogFragment {
         @Override
