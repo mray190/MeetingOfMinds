@@ -1,20 +1,27 @@
 package com.webs.michael_ray.meetingofminds;
 
 import android.graphics.Color;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
 import com.webs.michael_ray.meetingofminds.adapters.PointNearAdapter;
+import com.webs.michael_ray.meetingofminds.logic.DatabaseManager;
 import com.webs.michael_ray.meetingofminds.logic.Point;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
 public class NearFragment extends ListFragment {
-    private PointNearAdapter pAdapter;
-    private ArrayList<Point> points;
+    private Location location;
+
+    public NearFragment(Location location) {
+        this.location = location;
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,13 +31,34 @@ public class NearFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getListView().setCacheColorHint(Color.TRANSPARENT);
-        points = new ArrayList<Point>();
-        pAdapter = new PointNearAdapter(getActivity(), R.layout.row_near, points);
-        setListAdapter(pAdapter);
+        GetNear getNear = new GetNear();
+        getNear.execute();
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
+    }
+
+    private class GetNear extends AsyncTask<Void, Integer, Void> {
+        private PointNearAdapter pAdapter;
+        private ArrayList<Point> points;
+        @Override
+        protected Void doInBackground(Void...params) {
+            try {
+                points = DatabaseManager.dm.findNear(location);
+            } catch (SQLException e) {
+                points = new ArrayList<Point>();
+            }
+            return null;
+        }
+        protected void onProgressUpdate(Integer...progress) {
+
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            pAdapter = new PointNearAdapter(getActivity(), R.layout.row_near, points);
+            setListAdapter(pAdapter);
+        }
     }
 }

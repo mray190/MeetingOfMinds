@@ -57,7 +57,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
 
         fm = getSupportFragmentManager();
 
-        mPagerAdapter = new TabsAdapter(fm);
+        mPagerAdapter = new TabsAdapter(fm,mLocationClient.getLastLocation());
         mPager.setAdapter(mPagerAdapter);
         mPager.setOffscreenPageLimit(5);
 
@@ -133,6 +133,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
 
     @Override
     public void onLocationChanged(Location location) {
+        mLocationClient.getLastLocation();
         Toast.makeText(this, "Location Changed", Toast.LENGTH_LONG).show();
     }
 
