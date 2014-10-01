@@ -150,6 +150,12 @@ public class Point {
     public boolean getFav(){
         return favorite;
     }
+
+    public double getLatitude() { return latitude; }
+
+    public double getLongitude() { return longitude; }
+
+    public int getUserId() { return userId; }
     //----------------------------------------------------------------------------------------------
 
 

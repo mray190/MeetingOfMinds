@@ -41,7 +41,6 @@ public class DatabaseManager {
 
     //Helper Functions
     //----------------------------------------------------------------------------------------------
-    //pls dont touch
     private static final String md5(final String s) {
         try {
             // Create MD5 Hash
@@ -79,37 +78,21 @@ public class DatabaseManager {
                Integer.parseInt(vals[0]),           //userId
                Integer.parseInt(vals[1]),           //subId
                false,                               //favorite
-               vals[3],                             //category
-               CategoryManager.resource(vals[4]),   //categoryIconCode
-               vals[5],                             //names
-               Double.parseDouble(vals[6]),         //latitude
-               Double.parseDouble(vals[7]),         //longitude
-               Integer.parseInt(vals[8]),           //numReports
-               Integer.parseInt(vals[9]),           //numVotes
-               Double.parseDouble(vals[10]),        //rating
-               Integer.parseInt(vals[11]),          //time
+               vals[2],                             //category
+               CategoryManager.resource(vals[3]),   //categoryIconCode
+               vals[4],                             //names
+               Double.parseDouble(vals[5]),         //latitude
+               Double.parseDouble(vals[6]),         //longitude
+               Integer.parseInt(vals[7]),           //numReports
+               Integer.parseInt(vals[8]),           //numVotes
+               Double.parseDouble(vals[9]),        //rating
+               Integer.parseInt(vals[10]),          //time
                loc                                  //current location
             ));
         }
 
         return points;
     }
-    //----------------------------------------------------------------------------------------------
-
-
-    //Access
-    //----------------------------------------------------------------------------------------------
-    public static DatabaseManager dm = new DatabaseManager();
-    //----------------------------------------------------------------------------------------------
-
-
-    //Constructor
-    //----------------------------------------------------------------------------------------------
-    private DatabaseManager(){
-
-    }
-    //----------------------------------------------------------------------------------------------
-
 
     private String post(String url, List<NameValuePair> pairs) throws IOException{
         // Create a new HttpClient and Post Header
@@ -132,10 +115,25 @@ public class DatabaseManager {
 
         return "Exception";
     }
+    //----------------------------------------------------------------------------------------------
+
+
+    //Access
+    //----------------------------------------------------------------------------------------------
+    public static DatabaseManager dm = new DatabaseManager();
+    //----------------------------------------------------------------------------------------------
+
+
+    //Constructor
+    //----------------------------------------------------------------------------------------------
+    private DatabaseManager(){
+
+    }
+    //----------------------------------------------------------------------------------------------
+
 
     //User functions
     //----------------------------------------------------------------------------------------------
-
     public int createUser(String username, String password) throws IOException {
         //Computation
         String hash = md5(password);
@@ -157,12 +155,7 @@ public class DatabaseManager {
         return Integer.parseInt(tmp);
     }
 
-    /**
-     *
-     * @param username
-     * @param password
-     * @return User id. Returns -1 on failure
-     */
+
     public int authUser(String username, String password) throws IOException {
         //Computation
         String hash = md5(password);
@@ -220,29 +213,15 @@ public class DatabaseManager {
      * @return ArrayList of all points found
      * @throws SQLException because deal with it Michael
      */
-    public ArrayList<Point> findFavorites(int userId) throws SQLException {
-        //Get all the point IDs associated with the userID
-        ResultSet subIds = query(
-                "SELECT sid " +
-                        "FROM favorites " +
-                        "WHERE uid = '" + userId + "'"
-        );
+    public ArrayList<Point> findFavorites(int userId) throws IOException {
+        //Request
+        String request = "http://shaneschulte.com/motm/findFavorites.php";
 
-        //Container
-        ArrayList<Point> points = new ArrayList<Point>();
+        //Params
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>(1);
+        pairs.add(new BasicNameValuePair("uid", Integer.toString(userId)));
 
-        //Converts all favorite point IDs to the Java container
-        while (subIds.next()){
-            ResultSet pointData = query(
-                    "SELECT * " +
-                            "FROM submissions " +
-                            "WHERE sid = '" + subIds.getInt("sid") + "'"
-            );
-
-//            points.addAll(convertToPoints(pointData));
-        }
-
-        return points;
+        return convertToPoints(post(request, pairs), null); //TODO need location
     }
     //----------------------------------------------------------------------------------------------
 
@@ -253,29 +232,19 @@ public class DatabaseManager {
         //TODO
     }
 
-    /**
-     *
-     * @param loc Location the point should be placed
-     * @param category integer representation of category
-     * @param description a short description (think name) [please sanitize, 22 char max]
-     * @param userId uid returned from authUser
-     * @return true/false based on success of submission
-     * @throws SQLException sorry michael
-     */
-    public boolean insertPoint(Location loc, int category, String description, int userId) throws SQLException {
-        double longitude = loc.getLongitude();
-        double latitude  = loc.getLatitude();
-        ResultSet points = query("SELECT * FROM submissions WHERE " +
-                " and longitude > " + (longitude - long_range_min) +
-                " and latitude  > " + (latitude  -  lat_range_min) +
-                " and longitude < " + (longitude + long_range_min) +
-                " and latitude  < " + (latitude  +  lat_range_min));
-        if(points.next()) {
-            return false;
-        }
-        query("INSERT INTO submissions (uid, latitude, longitude, type, description) VALUES " +
-                "('"+userId+"', '"+latitude+"', '"+longitude+"', '"+category+"', '"+description+"')");
-        return true;
+    public boolean insertPoint(Point point) throws IOException {
+        //Request
+        String request = "http://shaneschulte.com/motm/findFavorites.php";
+
+        //Params
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>(1);
+        pairs.add(new BasicNameValuePair("longitude", Double.toString(point.getLongitude())));
+        pairs.add(new BasicNameValuePair("latitude", Double.toString(point.getLatitude())));
+        pairs.add(new BasicNameValuePair("category", point.getCat()));
+        pairs.add(new BasicNameValuePair("description", point.getName()));
+        pairs.add(new BasicNameValuePair("uid", Integer.toString(point.getUserId())));
+
+        return Boolean.parseBoolean(post(request, pairs));
     }
     //-------------------------- --------------------------------------------------------------------
 
