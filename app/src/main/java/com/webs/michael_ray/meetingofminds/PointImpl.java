@@ -1,7 +1,7 @@
 package com.webs.michael_ray.meetingofminds;
 
 /**
- * Created by asb on 30/09/14.
+ * Created by Aaron Barber on 30/09/14.
  */
 public class PointImpl implements Point {
 
