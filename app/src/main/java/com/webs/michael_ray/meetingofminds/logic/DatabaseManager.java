@@ -65,24 +65,41 @@ public class DatabaseManager {
     private ArrayList<Point> convertToPoints(String rows, Location loc){
         ArrayList<Point> points = new ArrayList<Point>();
 
+        if (rows.equals("")){
+            return points;
+        }
+
         String[] rowSet = rows.split("\\r?\\n");
 
         for (String row: rowSet){
+            if (row.equals("")){
+                break;
+            }
+
             String[] vals = row.split(",");
 
+            int userId = vals[0].equals("") ? 0 : Integer.parseInt(vals[0]);
+            int subId = vals[1].equals("") ? 0 : Integer.parseInt(vals[1]);
+            double lat = vals[4].equals("") ? 0 : Double.parseDouble(vals[4]);
+            double lon = vals[5].equals("") ? 0 : Double.parseDouble(vals[5]);
+            int numReports = vals[6].equals("") ? 0 : Integer.parseInt(vals[6]);
+            int numVotes = vals[7].equals("") ? 0 : Integer.parseInt(vals[7]);
+            double rating = vals[8].equals("") ? 0 : Double.parseDouble(vals[8]);
+            int time = vals[9].equals("") ? 0 : Integer.parseInt(vals[9]);
+
             points.add(new Point(
-               Integer.parseInt(vals[0]),           //userId
-               Integer.parseInt(vals[1]),           //subId
+               userId,                              //userId
+               subId,                               //subId
                false,                               //favorite
                vals[2],                             //category
                CategoryManager.resource(vals[2]),   //categoryIconCode
                vals[3],                             //names
-               Double.parseDouble(vals[4]),         //latitude
-               Double.parseDouble(vals[5]),         //longitude
-               Integer.parseInt(vals[6]),           //numReports
-               Integer.parseInt(vals[7]),           //numVotes
-               Double.parseDouble(vals[8]),         //rating
-               Integer.parseInt(vals[9]),          //time
+               lat,                                 //latitude
+               lon,                                 //longitude
+               numReports,                          //numReports
+               numVotes,                            //numVotes
+               rating,                              //rating
+               time,                                //time
                loc                                  //current location
             ));
         }
