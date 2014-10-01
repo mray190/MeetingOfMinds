@@ -90,7 +90,7 @@ public class DatabaseManager {
 
     //Access
     //----------------------------------------------------------------------------------------------
-    public static DatabaseManager manager = new DatabaseManager();
+    public static DatabaseManager dm = new DatabaseManager();
     //----------------------------------------------------------------------------------------------
 
 
@@ -247,13 +247,18 @@ public class DatabaseManager {
 
     //Sequel
     //----------------------------------------------------------------------------------------------
-    private ResultSet query(String sqlStatement) throws SQLException{
+    private ResultSet query(String sqlStatement) throws SQLException {
         String url      = "jdbc:mysql://shaneschulte.com:3306/";
         String db       = "schul030_meeting_of_the_minds";
         String username = "schul030_motm";
         String password = "%LyB}g4Pxlrz";
 
         //Connect
+        try {
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         Connection conn = DriverManager.getConnection(url+db, username, password);
 
         //Allocate Statement
