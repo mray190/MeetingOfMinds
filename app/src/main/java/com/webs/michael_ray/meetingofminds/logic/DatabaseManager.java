@@ -87,7 +87,7 @@ public class DatabaseManager {
     }
     //Access
     //----------------------------------------------------------------------------------------------
-    public static DatabaseManager manager = new DatabaseManager();
+    public static DatabaseManager dm = new DatabaseManager();
     //----------------------------------------------------------------------------------------------
 
 
