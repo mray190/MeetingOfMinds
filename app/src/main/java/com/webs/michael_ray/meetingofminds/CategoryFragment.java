@@ -6,13 +6,13 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.webs.michael_ray.meetingofminds.adapters.PointNearAdapter;
+import com.webs.michael_ray.meetingofminds.adapters.PointCatAdapter;
 import com.webs.michael_ray.meetingofminds.logic.Point;
 
 import java.util.ArrayList;
 
 public class CategoryFragment extends ListFragment {
-    private PointNearAdapter pAdapter;
+    private PointCatAdapter pAdapter;
     private ArrayList<Point> points;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -23,8 +23,20 @@ public class CategoryFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getListView().setCacheColorHint(Color.TRANSPARENT);
-        pAdapter = new PointNearAdapter(getActivity(), android.R.layout.simple_list_item_1, points);
+        points = new ArrayList<Point>();
+        points.add(addPoint());
+        pAdapter = new PointCatAdapter(getActivity(), R.layout.row_catmain, points);
         setListAdapter(pAdapter);
+    }
+
+    private Point addPoint() {
+        Point point = new Point();
+        point.setCat("Food Truck");
+        point.setName("Mikes Hotdog stand");
+        point.setRate(4);
+        point.setIcon(R.drawable.ic_launcher);
+        point.setDir(R.drawable.ic_launcher);
+        return point;
     }
 
     @Override

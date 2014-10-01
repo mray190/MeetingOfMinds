@@ -23,8 +23,20 @@ public class FavoritesFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getListView().setCacheColorHint(Color.TRANSPARENT);
-        pAdapter = new PointNearAdapter(getActivity(), android.R.layout.simple_list_item_1, points);
+        points = new ArrayList<Point>();
+        points.add(addPoint());
+        pAdapter = new PointNearAdapter(getActivity(), R.layout.row_near, points);
         setListAdapter(pAdapter);
+    }
+
+    private Point addPoint() {
+        Point point = new Point();
+        point.setCat("Food Truck");
+        point.setName("Mikes Hotdog stand");
+        point.setRate(4);
+        point.setIcon(R.drawable.ic_launcher);
+        point.setDir(R.drawable.ic_launcher);
+        return point;
     }
 
     @Override

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class PointNearAdapter extends ArrayAdapter<Point> {
     Context context;
     int layoutResourceId;
-    ArrayList<Point> data = null;
+    ArrayList<Point> data;
     DecimalFormat df = new DecimalFormat("0.00");
 
     public PointNearAdapter(Context context, int layoutResourceId, ArrayList<Point> data) {
