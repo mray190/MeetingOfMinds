@@ -16,11 +16,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -247,39 +243,5 @@ public class DatabaseManager {
         return Boolean.parseBoolean(post(request, pairs));
     }
     //-------------------------- --------------------------------------------------------------------
-
-
-    //Sequel
-    //----------------------------------------------------------------------------------------------
-    private ResultSet query(String sqlStatement) throws SQLException {
-        if (true){
-            return null;
-        }
-
-        String url      = "jdbc:mysql://shaneschulte.com:3306/";
-        String db       = "schul030_meeting_of_the_minds";
-        String username = "schul030_motm";
-        String password = "%LyB}g4Pxlrz";
-
-        //Connect
-        try {
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        Connection conn = DriverManager.getConnection(url+db, username, password);
-
-        //Allocate Statement
-        Statement statement = conn.createStatement();
-
-        //Execute a SQL SELECT query
-        ResultSet resultSet = statement.executeQuery(sqlStatement);
-
-        //Ends connection
-        conn.close();
-
-        return resultSet;
-    }
-    //----------------------------------------------------------------------------------------------
 
 }
