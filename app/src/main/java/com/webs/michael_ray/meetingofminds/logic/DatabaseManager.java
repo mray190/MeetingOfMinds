@@ -2,7 +2,7 @@ package com.webs.michael_ray.meetingofminds.logic;
 
 import android.location.Location;
 
-import java.io.DataOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -106,21 +106,7 @@ public class DatabaseManager {
     //----------------------------------------------------------------------------------------------
 
 
-    //User functions
-    //----------------------------------------------------------------------------------------------
-
-    /**
-     *
-     * @param username
-     * @param password
-     * @return User id.  Returns -1 on failure (username already taken)
-     */
-    public int createUser(String username, String password) throws IOException {
-        String hash = md5(password);
-        String urlParameters = "username=" + username + "&hash=" + hash;
-
-        //Requests
-        String request = "http://shaneschulte.com/motm/createUser.php";
+    private String post(String params, String request) throws IOException{
         URL url = new URL(request);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
@@ -129,16 +115,29 @@ public class DatabaseManager {
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         connection.setRequestProperty("charset", "utf-8");
-        connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+        connection.setRequestProperty("Content-Length", "" + Integer.toString(params.getBytes().length));
         connection.setUseCaches (false);
 
-        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-        wr.writeBytes(urlParameters);
-        wr.flush();
-        wr.close();
+        DataInputStream is = new DataInputStream(connection.getInputStream());
+        String tmp = is.toString();
+        is.close();
         connection.disconnect();
 
-        return -1;
+        if (tmp == null || tmp.equals("")){
+            throw new IOException();
+        }
+
+        return tmp;
+    }
+
+    //User functions
+    //----------------------------------------------------------------------------------------------
+
+    public int createUser(String username, String password) throws IOException {
+        String hash = md5(password);
+        String urlParameters = "username=" + username + "&hash=" + hash;
+        String request = "http://shaneschulte.com/motm/createUser.php";
+        return Integer.parseInt(post(urlParameters, request));
     }
 
     /**
@@ -150,27 +149,8 @@ public class DatabaseManager {
     public int authUser(String username, String password) throws IOException {
         String hash = md5(password);
         String urlParameters = "username=" + username + "&hash=" + hash;
-
-        //Requests
         String request = "http://shaneschulte.com/motm/authUser.php";
-        URL url = new URL(request);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
-        connection.setInstanceFollowRedirects(false);
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        connection.setRequestProperty("charset", "utf-8");
-        connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
-        connection.setUseCaches (false);
-
-        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-        wr.writeBytes(urlParameters);
-        wr.flush();
-        wr.close();
-        connection.disconnect();
-
-        return 0;
+        return Integer.parseInt(post(urlParameters, request));
     }
     //----------------------------------------------------------------------------------------------
 
