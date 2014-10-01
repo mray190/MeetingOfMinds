@@ -5,4 +5,7 @@
     <color name="cat2">#ff2f3ea9</color>
     <color name="cat3">#ffc74747</color>
     <color name="cat4">#ffb39612</color>
+    <color name="header">#fd2d6a2c</color>
+    <color name="white">#ffffffff</color>
+    <color name="grey">#ffb6b6b6</color>
 </resources>
