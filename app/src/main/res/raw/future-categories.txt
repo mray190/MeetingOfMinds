@@ -1,0 +1,2 @@
+Buildings, Business, Fire Station, Movie Theater, Museum, Police Station, Post Office, School
+Events, Charity, Running, Sports

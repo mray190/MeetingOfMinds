@@ -90,6 +90,28 @@ public class Point {
         this.currentLocation.setLongitude(longitude);
         this.currentLocation.setLatitude(latitude);
     }
+
+    public Point(
+            String category,
+            int categoryIconCode,
+            double loc_longitude,
+            double loc_latitude
+    ){
+        this.userId = 0;
+        this.subId = 0;
+        this.favorite = false;
+        this.category = category;
+        this.categoryIconCode = categoryIconCode;
+        this.name = name;
+        this.latitude = 0;
+        this.longitude = 0;
+        this.numReports = 0;
+        this.numVotes = 0;
+        this.rating = 0;
+        this.currentLocation = new Location("");
+        this.currentLocation.setLongitude(loc_longitude);
+        this.currentLocation.setLatitude(loc_latitude);
+    }
     //----------------------------------------------------------------------------------------------
 
 
