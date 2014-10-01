@@ -1,9 +1,9 @@
-package com.webs.michael_ray.meetingofminds;
+package com.webs.michael_ray.meetingofminds.logic;
 
 /**
- * Created by Aaron Barber on 30/09/14.
+ * Created by asb on 30/09/14.
  */
-public class PointImpl implements Point {
+public class Point {
 
 
     //Data
@@ -20,7 +20,7 @@ public class PointImpl implements Point {
 
     //Constructors
     //----------------------------------------------------------------------------------------------
-    public PointImpl(){
+    public Point(){
         this(null, null, -1, -1, -1, -1, false);
     }
 
@@ -34,7 +34,7 @@ public class PointImpl implements Point {
      * @param rate rating of the point, from 0-5
      * @param fav whether the point is a favorite
      */
-    public PointImpl(String cat, String name, int icon, int dir, double dist, double rate, boolean fav){
+    public Point(String cat, String name, int icon, int dir, double dist, double rate, boolean fav){
         this.cat = cat;
         this.name = name;
         this.icon = icon;
@@ -102,5 +102,6 @@ public class PointImpl implements Point {
         return fav;
     }
     //----------------------------------------------------------------------------------------------
+
 
 }
