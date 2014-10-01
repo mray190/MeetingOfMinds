@@ -11,7 +11,6 @@ import com.webs.michael_ray.meetingofminds.adapters.PointNearAdapter;
 import com.webs.michael_ray.meetingofminds.logic.DatabaseManager;
 import com.webs.michael_ray.meetingofminds.logic.Point;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FavoritesFragment extends ListFragment {
@@ -30,7 +29,7 @@ public class FavoritesFragment extends ListFragment {
     public void updateList(int userID) {
         this.userID = userID;
         GetFav getFav = new GetFav();
-        getFav.execute();
+        //getFav.execute();
     }
 
     @Override
@@ -45,7 +44,7 @@ public class FavoritesFragment extends ListFragment {
         protected Void doInBackground(Void...params) {
             try {
                 points = DatabaseManager.dm.findFavorites(userID);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 points = new ArrayList<Point>();
             }
             return null;

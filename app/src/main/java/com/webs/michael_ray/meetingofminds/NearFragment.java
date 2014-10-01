@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -12,7 +13,6 @@ import com.webs.michael_ray.meetingofminds.adapters.PointNearAdapter;
 import com.webs.michael_ray.meetingofminds.logic.DatabaseManager;
 import com.webs.michael_ray.meetingofminds.logic.Point;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -46,8 +46,12 @@ public class NearFragment extends ListFragment {
         @Override
         protected Void doInBackground(Void...params) {
             try {
+                Log.d("MyApp",Double.toString(location.getLatitude()));
+                Log.d("MyApp",Double.toString(location.getLongitude()));
                 points = DatabaseManager.dm.findNear(location);
-            } catch (SQLException e) {
+                Log.d("MyApp",Integer.toString(points.size()));
+            } catch (Exception e) {
+                e.printStackTrace();
                 points = new ArrayList<Point>();
             }
             return null;

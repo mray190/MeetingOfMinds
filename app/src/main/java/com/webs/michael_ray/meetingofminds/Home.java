@@ -200,7 +200,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
     @Override
     public void onConnected(Bundle bundle) {
         currentLoc = mLocationClient.getLastLocation();
-        //updateLists();
+        updateLists();
     }
 
     @Override
