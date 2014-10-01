@@ -15,22 +15,19 @@ import java.util.ArrayList;
  * Created by Aaron Barber on 30/09/14.
  */
 public class DatabaseManager {
-    /*
-    //Iterate through ResultSet
 
-     while(rset.next()) {
-       rset.getString("column");
-       rset.getDouble("column");
-       rset.getInt("column");
-     }
-
-    */
+    //GPS constants
+    //----------------------------------------------------------------------------------------------
     private final double long_range = 0.05;
     private final double lat_range  = 0.05;
 
     private final double long_range_min = 0.001/3;
     private final double lat_range_min  = 0.001/3;
+    //----------------------------------------------------------------------------------------------
 
+
+    //Helper Functions
+    //----------------------------------------------------------------------------------------------
     //pls dont touch
     private static final String md5(final String s) {
         try {
@@ -67,17 +64,20 @@ public class DatabaseManager {
         ArrayList<Point> points = new ArrayList<Point>();
 
         while (data.next()){
+            String category = data.getString("type");
             points.add(
                     new Point(
+                            data.getInt("uid"),
                             data.getInt("sid"),
+                            false, //TODO is favorite
+                            category,
+                            CategoryManager.resource(category),
+                            data.getString("description"),
                             data.getDouble("lat"),
                             data.getDouble("long"),
-                            data.getInt("type"),
                             data.getInt("reports"),
-                            data.getString("description"),
-                            data.getInt("rating"),
                             data.getInt("votes"),
-                            data.getInt("uid"),
+                            data.getInt("rating"),
                             data.getTime("time")
                     )
             );
@@ -85,6 +85,9 @@ public class DatabaseManager {
 
         return points;
     }
+    //----------------------------------------------------------------------------------------------
+
+
     //Access
     //----------------------------------------------------------------------------------------------
     public static DatabaseManager manager = new DatabaseManager();

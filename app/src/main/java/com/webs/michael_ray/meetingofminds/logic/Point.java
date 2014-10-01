@@ -21,7 +21,7 @@ public class Point {
     private boolean favorite;
 
     //Category data
-    private int category;
+    private String category;
     private int categoryIconCode;
     private String name;
 
@@ -39,25 +39,32 @@ public class Point {
 
     //Constructors
     //----------------------------------------------------------------------------------------------
-    /**
-     * Constructs a Point.
-     * @param cat category, such as "Food"
-     * @param name name of the point, such as "Tom's Food Truck"
-     * @param icon index of the icon, such as "1" for "R.drawable.ic_1"
-     * @param dir direction of the point, relative to the current location
-     * @param dist distance of the point, relative to the current location
-     * @param rate rating of the point, from 0-5
-     * @param fav whether the point is a favorite
-     */
     public Point(
-            String cat,
+            int userId,
+            int subId,
+            boolean favorite,
+            String category,
+            int categoryIconCode,
             String name,
-            int icon,
-            int dir,
-            double dist,
-            double rate,
-            boolean fav
+            double latitude,
+            double longitude,
+            int numReports,
+            int numVotes,
+            double rating,
+            Time time
     ){
+        this.userId = userId;
+        this.subId = subId;
+        this.favorite = favorite;
+        this.category = category;
+        this.categoryIconCode = categoryIconCode;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.numReports = numReports;
+        this.numVotes = numVotes;
+        this.rating = rating;
+        this.time = time;
     }
 
     public Point(
@@ -78,11 +85,6 @@ public class Point {
 
     //Calculations
     //----------------------------------------------------------------------------------------------
-    private String convertCategory(int category){
-//        context.getResources().openRawResource(R.raw.category_json);
-        return null;
-    }
-
     private Location getLocation(){
         Location loc = new Location("");
         loc.setLatitude(this.latitude);
@@ -95,7 +97,7 @@ public class Point {
     //Getters
     //----------------------------------------------------------------------------------------------
     public String getCat(){
-        return convertCategory(category);
+        return category;
     }
 
     public String getName(){
