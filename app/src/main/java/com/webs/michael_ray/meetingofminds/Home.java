@@ -142,6 +142,7 @@ public class Home extends FragmentActivity implements LocationListener, ActionBa
     private void updateLists() {
         ((NearFragment) mPagerAdapter.getRegisteredFragment(0)).updateList(currentLoc);
         ((FavoritesFragment) mPagerAdapter.getRegisteredFragment(2)).updateList(userID);
+        ((CategoryFragment) mPagerAdapter.getRegisteredFragment(2)).updateList(userID);
     }
 
     @Override
