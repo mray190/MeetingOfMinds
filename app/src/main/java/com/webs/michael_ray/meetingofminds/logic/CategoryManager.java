@@ -20,7 +20,7 @@ public class CategoryManager {
 
         for (int i = 0; i < CategoryFragment.categories.size() && mainCategory == null; i++){
             for (int j = 0; j < CategoryFragment.categories.get(i).size() && mainCategory == null; j++){
-                if (CategoryFragment.categories.get(i).get(j).equals(anyCategory)){
+                if (CategoryFragment.categories.get(i).get(j).trim().equals(anyCategory.trim())){
                     mainCategory = CategoryFragment.categories.get(i).get(j);
                     outerIndex = i;
                     innerIndex = j;
